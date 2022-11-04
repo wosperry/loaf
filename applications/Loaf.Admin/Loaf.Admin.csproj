@@ -8,12 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+      <Folder Include="Controllers" />
+      <Folder Include="Domain\Users" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-      <Folder Include="Domain\Users" />
+      <PackageReference Include="NSwag.AspNetCore" Version="13.17.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Loaf.Core\Loaf.Core.csproj" />
     </ItemGroup>
 
 </Project>
