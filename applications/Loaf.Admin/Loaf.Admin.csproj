@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Loaf.Core\Loaf.Core.csproj" />
+      <ProjectReference Include="..\..\src\Loaf.Core\Loaf.Core.csproj" />
     </ItemGroup>
 
 </Project>
