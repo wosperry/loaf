@@ -7,7 +7,7 @@ namespace Loaf.EntityFrameworkCore.Repository;
 public interface ILoafDbContextFinder<TEntity>
     where TEntity : class, IEntity
 {
-    public LoafDbContext Find();
+    public LoafDbContext GetDb();
 }
 
 public class LoafDbContextNotFoundException : Exception

@@ -34,7 +34,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
 
     public EfCoreRepository(ILoafDbContextFinder<TEntity> finder)
     {
-        _dbContext = finder.Find();
+        _dbContext = finder.GetDb();
     }
 
     public void Delete(TEntity entity, bool autoSave = false)
