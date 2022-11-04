@@ -26,7 +26,7 @@ public static class EntityFrameworkCoreExtensions
 
                 if (string.IsNullOrWhiteSpace(connectionString))
                 {
-                    throw new ConnectionStringNotSetException($"{typeof(DbContext).Name}应设置 ConnectionStringNameAttribute，并提供与appsettings.json 内配置的连接字符串相匹配的Key，若没有设置，则默认取 Connectionstrings.Default");
+                    throw new ConnectionStringNotSetException($"{typeof(TDbContext).Name}应设置 ConnectionStringNameAttribute，并提供与配置文件内配置的连接字符串相匹配的Key，若没有设置，则默认取 “Connectionstrings.Default”");
                 }
 
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);

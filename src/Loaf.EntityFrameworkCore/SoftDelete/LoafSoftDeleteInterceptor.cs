@@ -19,29 +19,25 @@ public class LoafSoftDeleteInterceptor : SaveChangesInterceptor
  
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
-        if (eventData.Context?.ChangeTracker.Entries().Any() ?? false)
+        if (!(eventData.Context?.ChangeTracker.Entries().Any() ?? false))
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
+        foreach (var trackingEntry in eventData.Context.ChangeTracker.Entries())
         {
-            foreach (var trackingEntry in eventData.Context.ChangeTracker.Entries())
+            if (trackingEntry.State != EntityState.Deleted) continue;
+            if (trackingEntry.Entity is ISoftDelete entity)
             {
-                if (trackingEntry.State == EntityState.Deleted)
-                {
-
-                    if (trackingEntry.Entity is ISoftDelete entity)
-                    {
-                        entity.IsDeleted = true;
-                    }
-                    var handler = _provider.GetService<ISoftDeleteHandler>();
-                    var methodInfo = typeof(ISoftDeleteHandler).GetMethod(nameof(ISoftDeleteHandler.SoftDeleteExecuting))?
-                        .MakeGenericMethod(trackingEntry.Entity.GetType());
-
-                    if (handler is not null)
-                    {
-                        methodInfo?.Invoke(handler, new object[] { trackingEntry.Entity });
-                    }
-
-                    trackingEntry.State = EntityState.Modified;
-                }
+                entity.IsDeleted = true;
             }
+            var handler = _provider.GetService<ISoftDeleteHandler>();
+            var methodInfo = typeof(ISoftDeleteHandler).GetMethod(nameof(ISoftDeleteHandler.SoftDeleteExecuting))?
+                .MakeGenericMethod(trackingEntry.Entity.GetType());
+
+            if (handler is not null)
+            {
+                methodInfo?.Invoke(handler, new object[] { trackingEntry.Entity });
+            }
+
+            trackingEntry.State = EntityState.Modified;
         }
 
         return base.SavingChangesAsync(eventData, result, cancellationToken);

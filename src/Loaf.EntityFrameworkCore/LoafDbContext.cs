@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Loaf.EntityFrameworkCore.Core
+namespace Loaf.EntityFrameworkCore
 {
     public class LoafDbContext: DbContext
     {

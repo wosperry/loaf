@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Loaf.EntityFrameworkCore.SoftDelete;
 
+/// <summary>
+/// 替换为客制化Model创建，增加自己代码
+/// 此方式实现，可以保证调用方不需要控制base.OnModelCreating的调用位置
+/// </summary>
 public class LoafModelCustomize : ModelCustomizer
 {
     public LoafModelCustomize(ModelCustomizerDependencies dependencies) : base(dependencies)

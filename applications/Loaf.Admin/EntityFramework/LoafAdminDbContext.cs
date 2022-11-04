@@ -1,4 +1,4 @@
-﻿using Loaf.EntityFrameworkCore.Core;
+﻿using Loaf.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.Admin.EntityFramework;
