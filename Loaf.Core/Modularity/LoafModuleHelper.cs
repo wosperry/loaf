@@ -9,7 +9,7 @@ namespace Loaf.Core.Modularity;
 
 public static class LoafModuleHelper
 {
-    private static readonly List<LoafModule> _modules = new ();
+    private static readonly List<LoafModule> Modules = new ();
 
     public static IServiceCollection AddModule<TModule>(this IServiceCollection services)
         where TModule : LoafModule
@@ -24,11 +24,11 @@ public static class LoafModuleHelper
     /// </summary>
     private static void InvokeConfigureService(IServiceCollection services)
     {
-        foreach (var preConfigureService in _modules.Select(m => (Action<ServiceConfigurationContext>)m.PreConfigureService))
+        foreach (var preConfigureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.PreConfigureService))
             preConfigureService(new(services));
-        foreach (var configureService in _modules.Select(m => (Action<ServiceConfigurationContext>)m.ConfigureService))
+        foreach (var configureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.ConfigureService))
             configureService(new(services));
-        foreach (var postConfigureService in _modules.Select(m => (Action<ServiceConfigurationContext>)m.PostConfigureService))
+        foreach (var postConfigureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.PostConfigureService))
             postConfigureService(new(services));
     }
 
@@ -38,7 +38,7 @@ public static class LoafModuleHelper
     private static IServiceCollection LoadModules(IServiceCollection services, Type moduleType)
     {
         var module = (Activator.CreateInstance(moduleType) as LoafModule)!;
-        _modules.Add(module);
+        Modules.Add(module);
 
         if (moduleType.IsDefined(typeof(DependsOnAttribute), false))
         {
