@@ -8,7 +8,6 @@ namespace Loaf.EntityFrameworkCore
     {
         public LoafDbContext(DbContextOptions options) : base(options)
         {
-
         }  
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

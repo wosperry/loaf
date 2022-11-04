@@ -10,7 +10,7 @@ namespace Loaf.EntityFrameworkCore;
 
 public static class EntityFrameworkCoreExtensions
 {
-    public static IServiceCollection AddMyDbContext<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder, string> optionAction)
+    public static IServiceCollection AddLoafDbContext<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder, string> optionAction)
         where TDbContext : LoafDbContext
     {
         return services
@@ -31,7 +31,7 @@ public static class EntityFrameworkCoreExtensions
 
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);
 
-                optionAction?.Invoke(options, connectionString); 
+                optionAction?.Invoke(options, connectionString);
             });
     }
 }
