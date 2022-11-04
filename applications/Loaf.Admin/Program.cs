@@ -22,7 +22,7 @@ app.Run();
 
 public class LoafAdminModule: LoafModule
 {
-    public override void ConfigureService(ServiceConfigurationContext context)
+    public override void ConfigureService(LoafModuleContext context)
     {
         context.Services.AddControllers();
         context.Services.AddEndpointsApiExplorer();

@@ -25,11 +25,11 @@ public static class LoafModuleHelper
     /// </summary>
     private static void InvokeConfigureService(IServiceCollection services, IConfiguration configuration = null)
     {
-        foreach (var preConfigureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.PreConfigureService))
+        foreach (var preConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PreConfigureService))
             preConfigureService(new(services,configuration));
-        foreach (var configureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.ConfigureService))
+        foreach (var configureService in Modules.Select(m => (Action<LoafModuleContext>)m.ConfigureService))
             configureService(new(services,configuration));
-        foreach (var postConfigureService in Modules.Select(m => (Action<ServiceConfigurationContext>)m.PostConfigureService))
+        foreach (var postConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PostConfigureService))
             postConfigureService(new(services,configuration));
     }
 

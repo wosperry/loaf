@@ -2,15 +2,15 @@
 
 public abstract class LoafModule
 {
-    public virtual void PreConfigureService(ServiceConfigurationContext context)
+    public virtual void PreConfigureService(LoafModuleContext context)
     {
     }
 
-    public virtual void ConfigureService(ServiceConfigurationContext context)
+    public virtual void ConfigureService(LoafModuleContext context)
     {
     }
 
-    public virtual void PostConfigureService(ServiceConfigurationContext context)
+    public virtual void PostConfigureService(LoafModuleContext context)
     {
     }
 }
