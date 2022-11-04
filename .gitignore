@@ -4,6 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+.vs/
+.idea/
+.vscode/
+
 *.rsuser
 *.suo
 *.user
