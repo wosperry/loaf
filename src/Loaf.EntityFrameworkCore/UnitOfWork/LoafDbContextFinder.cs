@@ -1,12 +1,14 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using Loaf.Core.DependencyInjection;
 using Loaf.EntityFrameworkCore.Core;
+using Loaf.EntityFrameworkCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Loaf.EntityFrameworkCore.Repository;
+namespace Loaf.EntityFrameworkCore.UnitOfWork;
 
-public class LoafDbContextFinder<TEntity>
+public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>, ITransient
     where TEntity : class, IEntity
 {
     private readonly LoafDbContext _loafDbContext;
@@ -25,5 +27,5 @@ public class LoafDbContextFinder<TEntity>
         }
     }
 
-    public LoafDbContext GetDbContxt() => _loafDbContext;
+    public LoafDbContext GetDb() => _loafDbContext;
 }

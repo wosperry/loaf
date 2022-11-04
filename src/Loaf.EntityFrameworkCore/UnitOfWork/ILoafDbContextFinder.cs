@@ -2,7 +2,7 @@
 using System;
 using Loaf.EntityFrameworkCore.Core;
 
-namespace Loaf.EntityFrameworkCore.Repository;
+namespace Loaf.EntityFrameworkCore.UnitOfWork;
 
 public interface ILoafDbContextFinder<TEntity>
     where TEntity : class, IEntity
