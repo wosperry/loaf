@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Loaf.Core.DependencyInjection;
 
 namespace Loaf.Core.Modularity;
 
@@ -13,7 +14,7 @@ public static class LoafModuleHelper
 {
     private static readonly List<LoafModule> Modules = new();
 
-    public static IServiceCollection AddModule<TModule>(this IServiceCollection services,
+    public static IServiceCollection AddLoafModule<TModule>(this IServiceCollection services,
         IConfiguration configuration = null)
         where TModule : LoafModule
     {
@@ -32,9 +33,11 @@ public static class LoafModuleHelper
             preConfigureService(new(services, configuration));
         }
 
-        foreach (var configureService in Modules.Select(m => (Action<LoafModuleContext>)m.ConfigureService))
+        foreach (var module in Modules)
         {
-            configureService(new(services, configuration));
+            // TODO: 加一个 LoafModuleOptions，AddLoafModule里加个Action，用于配置是否自动注册
+            services.RegisterService(module.GetType().Assembly.GetTypes());
+            module.ConfigureService(new(services, configuration));
         }
 
         foreach (var postConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PostConfigureService))
