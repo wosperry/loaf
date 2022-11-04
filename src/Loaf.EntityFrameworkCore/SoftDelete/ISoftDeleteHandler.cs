@@ -1,4 +1,4 @@
-namespace Loaf.EntityFrameworkCore;
+namespace Loaf.EntityFrameworkCore.SoftDelete;
 
 public interface ISoftDeleteHandler
 {

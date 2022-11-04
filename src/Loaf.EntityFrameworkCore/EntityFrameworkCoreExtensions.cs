@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using Loaf.EntityFrameworkCore.Core;
+using Loaf.EntityFrameworkCore.SoftDelete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

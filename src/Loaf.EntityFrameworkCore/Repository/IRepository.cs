@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Loaf.EntityFrameworkCore.Core;
 
-namespace Loaf.EntityFrameworkCore;
+namespace Loaf.EntityFrameworkCore.Repository;
 
 public interface IRepository<TEntity> where TEntity : class, IEntity
 {

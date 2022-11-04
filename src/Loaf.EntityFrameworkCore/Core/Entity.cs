@@ -1,4 +1,4 @@
-namespace Loaf.EntityFrameworkCore;
+namespace Loaf.EntityFrameworkCore.Core;
 
 public abstract class Entity<TKey> : IEntity where TKey : struct
 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Loaf.EntityFrameworkCore;
+namespace Loaf.EntityFrameworkCore.SoftDelete;
 
 public class LoafSoftDeleteInterceptor : SaveChangesInterceptor
 {
