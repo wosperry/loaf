@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.EntityFrameworkCore.UnitOfWork;
 
-public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>, ITransient
+public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>
     where TEntity : class, IEntity
 {
-    private readonly LoafDbContext _loafDbContext;
+    private readonly DbContext _loafDbContext;
 
     public LoafDbContextFinder(IEnumerable<DbContext> dbContexts)
     {
         var context = dbContexts.FirstOrDefault(context =>
             context.Model.GetEntityTypes().Any(entityType => entityType.ClrType == typeof(TEntity))) ;
-        if (context is LoafDbContext loafDbContext)
+        if (context is DbContext loafDbContext)
         {
             _loafDbContext = loafDbContext;
         }
@@ -27,5 +27,5 @@ public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>, ITrans
         }
     }
 
-    public LoafDbContext GetDb() => _loafDbContext;
+    public DbContext GetDb() => _loafDbContext;
 }

@@ -1,4 +1,7 @@
-using Loaf.Core.Modularity; 
+using Loaf.Admin.EntityFramework;
+using Loaf.Core.Modularity;
+using Loaf.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.Admin;
 
@@ -9,6 +12,10 @@ public class LoafAdminModule : LoafModule
         context.Services.AddControllers();
         context.Services.AddEndpointsApiExplorer();
         context.Services.AddSwaggerDocument();
+        context.Services.AddLoafDbContext<LoafAdminDbContext>((options, connectionString) =>
+        {
+            options.UseSqlite(connectionString);
+        });
     }
 
     public override void Initialize(IApplicationBuilder application)

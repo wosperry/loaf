@@ -34,7 +34,7 @@ public static class LoafModuleHelper
 
         foreach (var module in Modules)
         {
-            // TODO: 加一个 LoafModuleOptions，AddLoafModule里加个Action，用于配置是否自动注册
+            // TODO：加一个 LoafModuleOptions，AddLoafModule里加个Action，用于配置是否自动注册
             services.RegisterService(module.GetType().Assembly.GetTypes());
             module.ConfigureService(new(services, configuration));
         }

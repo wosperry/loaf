@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Loaf.EntityFrameworkCore
 {
-    public class LoafDbContext: DbContext
+    public class LoafDbContext<TDbContext> : DbContext 
+        where TDbContext: DbContext
     {
-        public LoafDbContext(DbContextOptions options) : base(options)
+        public LoafDbContext(DbContextOptions<TDbContext> options) : base(options)
         {
         }  
 

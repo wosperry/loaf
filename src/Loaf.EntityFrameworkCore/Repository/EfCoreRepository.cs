@@ -14,7 +14,7 @@ namespace Loaf.EntityFrameworkCore.Repository;
 public class EfCoreRepository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
 {
-    private readonly LoafDbContext _dbContext;
+    private readonly DbContext _dbContext;
     private DbSet<TEntity> DbSet => _dbContext.Set<TEntity>();
 
     private async Task SaveChangeIfAutoSaveAsync(bool autoSave, CancellationToken cancellationToken = default)
