@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Loaf.EntityFrameworkCore.Core;
+using Loaf.Core.Data;
 
 namespace Loaf.EntityFrameworkCore.Repository;
 

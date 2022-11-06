@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Loaf.EntityFrameworkCore.Core;
+using Loaf.Core.Data;
 using Loaf.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 

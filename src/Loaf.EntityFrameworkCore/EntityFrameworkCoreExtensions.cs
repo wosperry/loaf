@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Loaf.Core.DependencyInjection;
+using Loaf.EntityFrameworkCore.Repository;
 using Loaf.EntityFrameworkCore.SoftDelete;
 using Loaf.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ public static class EntityFrameworkCoreExtensions
     {
         return services
             .AddTransient<LoafSoftDeleteInterceptor>()
+            .AddTransient<DbContext,TDbContext>()
             .AddDbContext<TDbContext>((provider, options) =>
             {
                 var configuration = provider.GetService<IConfiguration>();
@@ -34,6 +36,7 @@ public static class EntityFrameworkCoreExtensions
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);
             })
             .AddTransient(typeof(ILoafDbContextFinder<>),typeof(LoafDbContextFinder<>))
+            .AddScoped(typeof(IRepository<>),typeof(EfCoreRepository<>))
             .RegisterService(typeof(EntityFrameworkCoreExtensions).Assembly.GetTypes());
     }
 }

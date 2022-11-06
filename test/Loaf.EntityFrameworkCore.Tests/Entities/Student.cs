@@ -1,5 +1,7 @@
 ﻿#pragma warning disable CS8618
 
+using Loaf.Core.Data;
+
 namespace Loaf.EntityFrameworkCore.Tests.Entities
 {
     public class Student : Entity<Guid>

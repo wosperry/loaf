@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.Admin.EntityFramework;
 
-[ConnectionStringName("abc")]
+[ConnectionStringName("Default")]
 public class LoafAdminDbContext:LoafDbContext<LoafAdminDbContext>
 {
     public LoafAdminDbContext(DbContextOptions<LoafAdminDbContext> options) : base(options)

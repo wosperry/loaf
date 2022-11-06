@@ -13,4 +13,8 @@
       <ProjectReference Include="..\Loaf.Core\Loaf.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Core\" />
+    </ItemGroup>
+
 </Project>

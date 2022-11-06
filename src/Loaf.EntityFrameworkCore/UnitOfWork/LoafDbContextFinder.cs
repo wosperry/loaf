@@ -1,8 +1,8 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Linq;
+using Loaf.Core.Data;
 using Loaf.Core.DependencyInjection;
-using Loaf.EntityFrameworkCore.Core;
 using Loaf.EntityFrameworkCore.Repository;
 using Microsoft.EntityFrameworkCore;
 

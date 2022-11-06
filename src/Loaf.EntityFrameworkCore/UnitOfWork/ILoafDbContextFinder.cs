@@ -1,6 +1,6 @@
 #nullable enable
 using System;
-using Loaf.EntityFrameworkCore.Core;
+using Loaf.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.EntityFrameworkCore.UnitOfWork;
