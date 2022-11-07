@@ -1,12 +1,14 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Loaf.Core.Data;
+using Loaf.Core.Data.Dtos;
 
-namespace Loaf.EntityFrameworkCore.Repository;
+namespace Loaf.EntityFrameworkCore.Repository.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : class, IEntity
 {
@@ -28,4 +30,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
     public Task DeleteAsync(TEntity entity, bool autoSave = true, CancellationToken cancellationToken = default);
     public void SaveChanges();
     public Task SaveChangesAsync(CancellationToken cancellationToken);
+    public Task<PagedResult<TEntity>> GetPagedResultAsync(Expression<Func<TEntity, bool>> predicate, IPagination pagination);
+    public IQueryable<TEntity> GetQueryable();
+    public IQueryable<TEntity> GetQueryable<TParameter>(TParameter parameter);
 }

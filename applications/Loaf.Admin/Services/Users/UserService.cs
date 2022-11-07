@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Loaf.Admin.Controllers.Users;
 using Loaf.Admin.Entities;
 using Loaf.Admin.Services.Users.Dtos;
 using Loaf.Admin.Services.Users.Exceptions;
+using Loaf.Core.Data;
 using Loaf.Core.DependencyInjection;
 using Loaf.Core.Encryptors;
-using Loaf.EntityFrameworkCore.Repository;
+using Loaf.EntityFrameworkCore.Repository.Extensions;
+using Loaf.EntityFrameworkCore.Repository.Interfaces;
 
 namespace Loaf.Admin.Services.Users
 {
@@ -60,6 +63,14 @@ namespace Loaf.Admin.Services.Users
         {
             var user = await _userRepository.FirstOrDefaultAsync(t => t.Id == id);
             return _mapper.Map<UserDto>(user);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<UserDto>> GetPagedListAsync(UserQueryParameter input)
+        {
+            var query = _userRepository.GetQueryable(input);
+            var res = await query.GetPagedResultAsync(input);
+            return new PagedResult<UserDto>(res.Total, _mapper.Map<List<UserDto>>(res.Items)); 
         }
     }
 }

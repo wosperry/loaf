@@ -9,11 +9,6 @@ namespace Loaf.EntityFrameworkCore
     {
         public LoafDbContext(DbContextOptions<TDbContext> options) : base(options)
         {
-        }  
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.ReplaceService<IModelCustomizer, LoafModelCustomize>();
         }
     }
 }

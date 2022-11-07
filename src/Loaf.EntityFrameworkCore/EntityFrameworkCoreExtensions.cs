@@ -2,9 +2,11 @@
 using System.Reflection;
 using Loaf.Core.DependencyInjection;
 using Loaf.EntityFrameworkCore.Repository;
+using Loaf.EntityFrameworkCore.Repository.Interfaces;
 using Loaf.EntityFrameworkCore.SoftDelete;
 using Loaf.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -34,6 +36,7 @@ public static class EntityFrameworkCoreExtensions
                 
                 optionAction?.Invoke(options, connectionString);
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);
+                options.ReplaceService<IModelCustomizer, LoafModelCustomize>();
             })
             .AddTransient(typeof(ILoafDbContextFinder<>),typeof(LoafDbContextFinder<>))
             .AddScoped(typeof(IRepository<>),typeof(EfCoreRepository<>))

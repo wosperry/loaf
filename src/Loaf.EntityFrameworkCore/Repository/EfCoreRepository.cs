@@ -5,7 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Loaf.Core.Data;
+using Loaf.Core.Data; 
+using Loaf.EntityFrameworkCore.Repository.Extensions;
+using Loaf.EntityFrameworkCore.Repository.Interfaces;
 using Loaf.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +17,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
 {
     private readonly DbContext _dbContext;
+
     private DbSet<TEntity> DbSet => _dbContext.Set<TEntity>();
 
     private async Task SaveChangeIfAutoSaveAsync(bool autoSave, CancellationToken cancellationToken = default)
@@ -28,7 +31,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
     {
         if (autoSave)
         {
-             _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
     }
 
@@ -45,7 +48,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
 
     public async Task DeleteAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
     {
-       
+
         DbSet.Remove(entity);
         await SaveChangeIfAutoSaveAsync(autoSave, cancellationToken);
     }
@@ -80,7 +83,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
         CancellationToken cancellationToken = default)
     {
         await DbSet.AddAsync(entity, cancellationToken);
-        await SaveChangeIfAutoSaveAsync(autoSave,cancellationToken);
+        await SaveChangeIfAutoSaveAsync(autoSave, cancellationToken);
         return entity;
     }
 
@@ -104,6 +107,14 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
     public Task<List<TEntity>> ToListAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default) =>
         DbSet.Where(predicate).ToListAsync(cancellationToken);
+
+    public async Task<PagedResult<TEntity>> GetPagedResultAsync(Expression<Func<TEntity, bool>> predicate, IPagination pagination)
+    {
+        var query = DbSet.Where(predicate);
+        var total = await query.CountAsync();
+        var entities = await query.PageBy(pagination).ToListAsync();
+        return new(total, entities);
+    }
 
     public TEntity Update(TEntity entity, bool autoSave = false)
     {
@@ -133,7 +144,17 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
     {
         var data = entities as List<TEntity> ?? entities.ToList();
         DbSet.UpdateRange(data);
-        await SaveChangeIfAutoSaveAsync(autoSave,cancellationToken);
+        await SaveChangeIfAutoSaveAsync(autoSave, cancellationToken);
         return data;
+    }
+
+    public IQueryable<TEntity> GetQueryable()
+    {
+        return DbSet.AsQueryable<TEntity>();
+    }
+
+    public IQueryable<TEntity> GetQueryable<TParameter>(TParameter parameter)
+    {
+        return DbSet.AsQueryable<TEntity>().BuildQueryLambdaByParameter(parameter);
     }
 }

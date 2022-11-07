@@ -9,4 +9,9 @@ public class LoafAdminDbContext:LoafDbContext<LoafAdminDbContext>
     public LoafAdminDbContext(DbContextOptions<LoafAdminDbContext> options) : base(options)
     {
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.EnableSensitiveDataLogging(true);
+    }
 }
