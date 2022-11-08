@@ -5,9 +5,12 @@ namespace Loaf.Admin.Controllers.Users
 {
     public class UserQueryParameter : PageQueryParameter
     {
-        //[LoafEquals(PropertyName ="Name")]
+        [LoafContains]
         public string? Name { get; set; }
         [LoafEquals]
         public string? Account { get; set; }
+
+        [LoafContains(PropertyName = "Name")]
+        public List<string> TestNames { get; set; }
     }
 }

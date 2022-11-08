@@ -1,8 +1,11 @@
 using Loaf.Admin.EntityFramework;
+using Loaf.Admin.Services.Users.Exceptions;
 using Loaf.Core.Encryptors;
 using Loaf.Core.Modularity;
 using Loaf.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Loaf.Admin;
 
@@ -26,7 +29,7 @@ public class LoafAdminModule : LoafModule
 
     public override void Initialize(IApplicationBuilder application)
     {
-        var app = (application as WebApplication)!;
+        var app = (application as WebApplication)!; 
 
         if (app.Environment.IsDevelopment())
         {

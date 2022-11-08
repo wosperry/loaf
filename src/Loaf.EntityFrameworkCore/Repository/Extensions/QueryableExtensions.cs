@@ -75,15 +75,45 @@ public static class QueryableExtensions
             {
                 // TODO: 添加更多判断的支持
                 // TODO: 抽离到IEnumerable供普通迭代使用
-                switch (attr)
+                if (attr is LoafWhereAttribute whereAttr)
                 {
-                    case LoafEqualsAttribute whereAttr:
-                        ex = Expression.AndAlso(ex, Expression.Equal(
-                            left: Expression.Property(ex_t, whereAttr.PropertyName.IsNotEmpty() ? whereAttr.PropertyName : prop.Name),
-                            right: Expression.Convert(Expression.Constant(value), prop.PropertyType)));
-                        break;
-                    default:
-                        break;
+                    var propertyName = whereAttr.PropertyName.IsNotEmpty() ? whereAttr.PropertyName : prop.Name;
+                    var propertyExpression = Expression.Property(ex_t, propertyName);
+                    var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType);
+
+                    switch (whereAttr)
+                    {
+                        // t.Name == "asdf"
+                        case LoafEqualsAttribute stringAttr: 
+                                ex = Expression.AndAlso(ex, Expression.Equal(propertyExpression, valueExpression));
+                            break;
+                        // t.Name.StartWith("asdf")
+                        case LoafStartWithAttribute startWithAttr:
+                            var startwith = typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!;
+                            ex = Expression.AndAlso(ex, Expression.Call(propertyExpression, startwith, valueExpression));
+                            break;
+                        // t.Name.Contains("asdf")
+                        // t.Groups.Contains(group)
+                        // groups.Contains(t.Group) 
+                        case LoafContainsAttribute containAttr:
+                            if (prop.PropertyType.IsAssignableTo(typeof(System.Collections.ICollection)))
+                            {
+                                var entityProperty = typeof(TEntity).GetProperty(propertyName)
+                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
+                                var contains = prop.PropertyType.GetMethod("Contains", new Type[] { entityProperty.PropertyType })
+                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
+                                ex = Expression.AndAlso(ex, Expression.Call(valueExpression, contains, propertyExpression));
+                            }
+                            else
+                            {
+                                var contains = prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType })
+                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
+                                ex = Expression.AndAlso(ex, Expression.Call(propertyExpression, contains, valueExpression)); 
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
