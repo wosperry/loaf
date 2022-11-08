@@ -11,6 +11,6 @@ namespace Loaf.Admin.Controllers.Users
         public string? Account { get; set; }
 
         [LoafContains(PropertyName = "Name")]
-        public List<string> TestNames { get; set; }
+        public List<string>? TestNames { get; set; }
     }
 }
