@@ -17,7 +17,6 @@ namespace Loaf.Admin.EntityFramework.EntityTypeConfiguring
             builder.Property(x => x.Account).HasMaxLength(100).HasComment("账号");
             builder.Property(x => x.Password).HasMaxLength(100).HasComment("密码");
             builder.Property(x => x.Salt).HasMaxLength(100).HasComment("盐");
-
         }
     }
 }

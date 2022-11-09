@@ -81,44 +81,34 @@ public static class QueryableExtensions
                     var propertyExpression = Expression.Property(ex_t, propertyName);
                     var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType);
 
-                    switch (whereAttr)
+                    ex = whereAttr switch
                     {
-                        // t.Name == "asdf"
-                        case LoafEqualsAttribute stringAttr: 
-                                ex = Expression.AndAlso(ex, Expression.Equal(propertyExpression, valueExpression));
-                            break;
-                        // t.Name.StartWith("asdf")
-                        case LoafStartWithAttribute startWithAttr:
-                            var startwith = typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!;
-                            ex = Expression.AndAlso(ex, Expression.Call(propertyExpression, startwith, valueExpression));
-                            break;
-                        // t.Name.Contains("asdf")
-                        // t.Groups.Contains(group)
-                        // groups.Contains(t.Group) 
-                        case LoafContainsAttribute containAttr:
-                            if (prop.PropertyType.IsAssignableTo(typeof(System.Collections.ICollection)))
-                            {
-                                var entityProperty = typeof(TEntity).GetProperty(propertyName)
-                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
-                                var contains = prop.PropertyType.GetMethod("Contains", new Type[] { entityProperty.PropertyType })
-                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
-                                ex = Expression.AndAlso(ex, Expression.Call(valueExpression, contains, propertyExpression));
-                            }
-                            else
-                            {
-                                var contains = prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType })
-                                       ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
-                                ex = Expression.AndAlso(ex, Expression.Call(propertyExpression, contains, valueExpression)); 
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+                        LoafEqualsAttribute => Expression.AndAlso(ex, Expression.Equal(propertyExpression, valueExpression)),
+                        LoafGreaterThanAttribute => Expression.AndAlso(ex, Expression.GreaterThan(propertyExpression, valueExpression)),
+                        LoafGreaterThanOrEqualThanAttribute => Expression.AndAlso(ex, Expression.GreaterThanOrEqual(propertyExpression, valueExpression)),
+                        LoafLessThanAttribute => Expression.AndAlso(ex, Expression.LessThan(propertyExpression, valueExpression)),
+                        LoafLessThanOrEqualAttribute => Expression.AndAlso(ex, Expression.LessThanOrEqual(propertyExpression, valueExpression)),
+                        LoafStartWithAttribute => Expression.AndAlso(ex, Expression.Call(propertyExpression, typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!, valueExpression)),
+                        LoafContainsAttribute containAttr =>
+                            prop.PropertyType.IsAssignableTo(typeof(System.Collections.ICollection)) ?
+                                Expression.AndAlso(ex, Expression.Call(valueExpression, GetContainMethodInfo<TEntity>(prop, propertyName), propertyExpression)) :
+                                Expression.AndAlso(ex, Expression.Call(propertyExpression, GetContainMethodInfo(prop), valueExpression)),
+                        _ => ex
+                    };
                 }
             }
         }
 
         var lambda = Expression.Lambda<Func<TEntity, bool>>(ex, ex_t);
         return query.Where(lambda);
+    }
+
+    private static MethodInfo GetContainMethodInfo(PropertyInfo prop)
+        => prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType })?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>"); 
+
+    private static MethodInfo GetContainMethodInfo<TEntity>(PropertyInfo prop, string propertyName)
+    {
+        var t = typeof(TEntity).GetProperty(propertyName)?.PropertyType ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
+        return prop.PropertyType.GetMethod("Contains", new Type[] { t }) ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
     }
 }
