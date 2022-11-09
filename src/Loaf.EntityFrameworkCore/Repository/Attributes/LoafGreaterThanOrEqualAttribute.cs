@@ -3,7 +3,7 @@
 namespace Loaf.EntityFrameworkCore.Repository.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class LoafGreaterThanOrEqualThanAttribute : LoafWhereAttribute
+    public class LoafGreaterThanOrEqualAttribute : LoafWhereAttribute
     {
     }
 }

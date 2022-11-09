@@ -20,7 +20,14 @@ public static class QueryableExtensions
     /// </summary>
     public static IQueryable<TEntity> WhereIf<TEntity>(this IQueryable<TEntity> queryable, bool condition, Expression<Func<TEntity, bool>> predicate) where TEntity : class => condition ? queryable.Where(predicate) : queryable;
 
-
+    /// <summary>
+    /// 根据分页参数获取分页结果
+    /// </summary>
+    /// <typeparam name="TEntity">实体类型</typeparam>
+    /// <param name="query">quaryable</param>
+    /// <param name="pagination">分页参数，实现了分页接口的参数都行</param>
+    /// <param name="cancellationToken">取消标识</param>
+    /// <returns></returns>
     public static async Task<PagedResult<TEntity>> GetPagedResultAsync<TEntity>(this IQueryable<TEntity> query, IPagination pagination, CancellationToken cancellationToken = default)
         where TEntity : class
     {
@@ -54,6 +61,7 @@ public static class QueryableExtensions
         }
         return queryable;
     }
+
     public static IQueryable<TEntity> BuildQueryLambdaByParameter<TEntity, TParameter>(this IQueryable<TEntity> query, TParameter parameter)
     {
         var ex_t = Expression.Parameter(typeof(TEntity), "t");
@@ -76,16 +84,19 @@ public static class QueryableExtensions
                 // TODO: 添加更多判断的支持
                 // TODO: 抽离到IEnumerable供普通迭代使用
                 if (attr is LoafWhereAttribute whereAttr)
-                {
+                { 
                     var propertyName = whereAttr.PropertyName.IsNotEmpty() ? whereAttr.PropertyName : prop.Name;
                     var propertyExpression = Expression.Property(ex_t, propertyName);
-                    var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType);
+               
+                    var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType.Name.Contains(nameof(Nullable))
+                        ?prop.PropertyType.GetGenericArguments().First()
+                        :prop.PropertyType);
 
                     ex = whereAttr switch
                     {
                         LoafEqualsAttribute => Expression.AndAlso(ex, Expression.Equal(propertyExpression, valueExpression)),
                         LoafGreaterThanAttribute => Expression.AndAlso(ex, Expression.GreaterThan(propertyExpression, valueExpression)),
-                        LoafGreaterThanOrEqualThanAttribute => Expression.AndAlso(ex, Expression.GreaterThanOrEqual(propertyExpression, valueExpression)),
+                        LoafGreaterThanOrEqualAttribute => Expression.AndAlso(ex, Expression.GreaterThanOrEqual(propertyExpression, valueExpression)),
                         LoafLessThanAttribute => Expression.AndAlso(ex, Expression.LessThan(propertyExpression, valueExpression)),
                         LoafLessThanOrEqualAttribute => Expression.AndAlso(ex, Expression.LessThanOrEqual(propertyExpression, valueExpression)),
                         LoafStartWithAttribute => Expression.AndAlso(ex, Expression.Call(propertyExpression, typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!, valueExpression)),
