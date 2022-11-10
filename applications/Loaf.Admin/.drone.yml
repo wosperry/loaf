@@ -20,7 +20,7 @@ steps:
 # Loaf.Admin 编译、打包Docker镜像
 # - name: Loaf.Admin 编译
 #   image: mcr.microsoft.com/dotnet/sdk:6.0
-#   commands: 
+#   commands:  
 #   - dotnet build ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release
 #   - dotnet publish ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release -o ./publish/LoafAdmin
 
