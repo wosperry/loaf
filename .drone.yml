@@ -21,10 +21,6 @@ steps:
     branch:
       include:
       - master
-    event:
-      include:
-      - pull_request
-      - tag
 trigger:
   event:
   - tag
