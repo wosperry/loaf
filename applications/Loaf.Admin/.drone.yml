@@ -13,7 +13,6 @@ steps:
       from_secret: API_KEY
   commands: 
   - rm -rf ./publish
-  - ${API_KEY}
   - dotnet restore
   - dotnet pack -c Release -o ./publish/nupkgs
   - dotnet nuget push -s ${NUGET_URL} -k ${API_KEY} "./publish/nupkgs/*.nupkg"
