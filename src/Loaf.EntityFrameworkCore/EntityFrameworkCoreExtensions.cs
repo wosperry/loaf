@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using Loaf.Core.Data;
 using Loaf.Core.DependencyInjection;
 using Loaf.EntityFrameworkCore.Repository;
-using Loaf.EntityFrameworkCore.Repository.Interfaces;
 using Loaf.EntityFrameworkCore.SoftDelete;
 using Loaf.EntityFrameworkCore.UnitOfWork;
 using Microsoft.EntityFrameworkCore;

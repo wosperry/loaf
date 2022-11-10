@@ -1,42 +1,19 @@
-﻿#nullable enable
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Reflection; 
 using Loaf.Core.Data;
 using Loaf.Core.CommonExtensions;
-using Loaf.EntityFrameworkCore.Repository.Attributes;
-using Microsoft.EntityFrameworkCore;
+using Loaf.Repository.Core.Attributes;
 
-namespace Loaf.EntityFrameworkCore.Repository.Extensions;
+namespace Loaf.Repository.Core;
 
-public static class QueryableExtensions
+public static class QueryableCommonExtensions
 {
     /// <summary>
     /// WhereIf
     /// </summary>
     public static IQueryable<TEntity> WhereIf<TEntity>(this IQueryable<TEntity> queryable, bool condition, Expression<Func<TEntity, bool>> predicate) where TEntity : class => condition ? queryable.Where(predicate) : queryable;
-
-    /// <summary>
-    /// 根据分页参数获取分页结果
-    /// </summary>
-    /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <param name="query">quaryable</param>
-    /// <param name="pagination">分页参数，实现了分页接口的参数都行</param>
-    /// <param name="cancellationToken">取消标识</param>
-    /// <returns></returns>
-    public static async Task<PagedResult<TEntity>> GetPagedResultAsync<TEntity>(this IQueryable<TEntity> query, IPagination pagination, CancellationToken cancellationToken = default)
-        where TEntity : class
-    {
-        var total = await query.CountAsync(cancellationToken);
-        var entities = await query
-            .PageBy(pagination)
-            .ToListAsync(cancellationToken);
-        return new(total, entities);
-    }
 
     public static IQueryable<TEntity> PageBy<TEntity>(this IQueryable<TEntity> queryable, IPagination pagination)
     {
@@ -84,13 +61,13 @@ public static class QueryableExtensions
                 // TODO: 添加更多判断的支持
                 // TODO: 抽离到IEnumerable供普通迭代使用
                 if (attr is LoafWhereAttribute whereAttr)
-                { 
+                {
                     var propertyName = whereAttr.PropertyName.IsNotEmpty() ? whereAttr.PropertyName : prop.Name;
                     var propertyExpression = Expression.Property(ex_t, propertyName);
-               
+
                     var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType.Name.Contains(nameof(Nullable))
-                        ?prop.PropertyType.GetGenericArguments().First()
-                        :prop.PropertyType);
+                        ? prop.PropertyType.GetGenericArguments().First()
+                        : prop.PropertyType);
 
                     ex = whereAttr switch
                     {
@@ -101,7 +78,7 @@ public static class QueryableExtensions
                         LoafLessThanOrEqualAttribute => Expression.AndAlso(ex, Expression.LessThanOrEqual(propertyExpression, valueExpression)),
                         LoafStartWithAttribute => Expression.AndAlso(ex, Expression.Call(propertyExpression, typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!, valueExpression)),
                         LoafContainsAttribute containAttr =>
-                            prop.PropertyType.IsAssignableTo(typeof(System.Collections.ICollection)) ?
+                            typeof(System.Collections.ICollection).IsAssignableFrom(prop.PropertyType) ?
                                 Expression.AndAlso(ex, Expression.Call(valueExpression, GetContainMethodInfo<TEntity>(prop, propertyName), propertyExpression)) :
                                 Expression.AndAlso(ex, Expression.Call(propertyExpression, GetContainMethodInfo(prop), valueExpression)),
                         _ => ex
@@ -115,7 +92,7 @@ public static class QueryableExtensions
     }
 
     private static MethodInfo GetContainMethodInfo(PropertyInfo prop)
-        => prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType })?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>"); 
+        => prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType }) ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
 
     private static MethodInfo GetContainMethodInfo<TEntity>(PropertyInfo prop, string propertyName)
     {
