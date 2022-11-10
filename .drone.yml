@@ -16,7 +16,7 @@ steps:
   - rm -rf ./publish
   - dotnet restore
   - dotnet pack -c Release -o ./publish/nupkgs -p:PackageVersion=$DRONE_TAG
-  #- dotnet nuget push -s $NUGET_URL -k $API_KEY "./publish/nupkgs/*.nupkg"
+  - dotnet nuget push -s $NUGET_URL -k $API_KEY "./publish/nupkgs/*.nupkg"
 trigger:
   event:
   - tag
