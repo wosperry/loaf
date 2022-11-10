@@ -1,0 +1,40 @@
+kind: pipeline
+name: default
+
+steps: 
+
+# Loaf.Core 编译、发布Nuget
+- name: Loaf.Core 构建Nuget包
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  commands: 
+  - rm -rf ./publish
+  - dotnet restore
+  - dotnet pack -c Release -o ./publish/nupkgs
+  - dotnet nuget push -s $NUGET_URL -k $API_KEY "./publish/nupkgs/*.nupkg"
+
+# Loaf.Admin 编译、打包Docker镜像
+# - name: Loaf.Admin 编译
+#   image: mcr.microsoft.com/dotnet/sdk:6.0
+#   commands: 
+#   - dotnet build ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release
+#   - dotnet publish ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release -o ./publish/LoafAdmin
+
+# - name: 构建镜像  
+#   image: plugins/docker
+#   volumes:
+#   - name: docker
+#     path: /var/run/docker.sock
+#   settings:
+#     username: 
+#       from_secret: docker_user
+#     password: 
+#       from_secret: docker_pass
+#     repo: loaf-admin
+#     registry: registry.cn-zhangjiakou.aliyuncs.com
+#     tags: ${DRONE_COMMIT_BRANCH}-${DRONE_BUILD_NUMBER}
+
+trigger:
+  event:
+  - tag
+  branch:
+  - master
