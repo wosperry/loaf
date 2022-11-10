@@ -1,42 +1,14 @@
-# 摸鱼
+# Loaf
 
-## 一、 EFCore CLI 迁移命令
+## 计划添加的功能
+- [x] 类似ABP的Module
+- [x] 根据特性自动注册服务
+- [x] 分页查询时通过对参数class标记特殊特性，代替写一堆WhereIf代码
+- [x] 通用仓储IRepository封装，方便实体增删改查
+- [x] 支持软删除功能，在EFCore查询与删除动作时拦截处理
 
-### VS
-
-``` VS
-Add-Migration XXX
-Update-Database
-```
-
-### Windows PowerShell
-
-``` powershell
-
-$NAME = "TEST"
-dotnet ef migrations add `
-    --startup-project .\applications\Loaf.Admin\Loaf.Admin.csproj `
-    --project .\applications\Loaf.Admin\Loaf.Admin.csproj `
-    $NAME
-dotnet ef database update `
-    --startup-project .\applications\Loaf.Admin\Loaf.Admin.csproj `
-    --project .\applications\Loaf.Admin\Loaf.Admin.csproj
-
-```
-
-
-### Linux Shell
-
-``` shell
-
-NAME = "TEST" \
-dotnet ef migrations add ${NAME} \
-    --startup-project .\applications\Loaf.Admin\Loaf.Admin.csproj \
-    --project .\applications\Loaf.Admin\Loaf.Admin.csproj 
-
-    
-dotnet ef datebase update \
-    --startup-project .\applications\Loaf.Admin\Loaf.Admin.csproj \
-    --project .\applications\Loaf.Admin\Loaf.Admin.csproj
-
-```
+## 待办
+- [ ] 支持数据库字段区分多租户
+- [ ] 不知道该加啥，慢慢看
+- [ ] 不知道该加啥，慢慢看
+- [ ] 不知道该加啥，慢慢看
