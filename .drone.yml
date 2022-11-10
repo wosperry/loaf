@@ -1,3 +1,4 @@
+type: docker
 kind: pipeline
 name: default
 
