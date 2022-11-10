@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.0-test1</Version>
+    <Version>1.0.0-test2</Version>
     <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
     <PackageIconUrl>https://wosperry.com/lsky/img/2022/11/10/636cb6a31ac61.png</PackageIconUrl>
     <PackageProjectUrl>https://loaf.wosperry.com/</PackageProjectUrl>
