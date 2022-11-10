@@ -17,10 +17,6 @@ steps:
   - dotnet restore
   - dotnet pack -c Release -o ./publish/nupkgs -p:PackageVersion=$DRONE_TAG
   #- dotnet nuget push -s $NUGET_URL -k $API_KEY "./publish/nupkgs/*.nupkg"
-  when:
-    branch:
-      include:
-      - master
 trigger:
   event:
   - tag
