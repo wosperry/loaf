@@ -21,6 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.EntityFrameworkCore.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{F36D3761-C1F2-446A-8B7F-C6DCD0E747AA}"
 	ProjectSection(SolutionItems) = preProject
+		.drone.yml = .drone.yml
 		common.props = common.props
 	EndProjectSection
 EndProject

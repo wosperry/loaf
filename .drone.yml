@@ -16,6 +16,11 @@ steps:
   - dotnet restore
   - dotnet pack -c Release -o ./publish/nupkgs
   - dotnet nuget push -s $NUGET_URL -k $API_KEY "./publish/nupkgs/*.nupkg"
+trigger:
+  event:
+  - tag
+
+
 
 # Loaf.Admin 编译、打包Docker镜像
 # - name: Loaf.Admin 编译
@@ -37,7 +42,3 @@ steps:
 #     repo: loaf-admin
 #     registry: registry.cn-zhangjiakou.aliyuncs.com
 #     tags: ${DRONE_COMMIT_BRANCH}-${DRONE_BUILD_NUMBER}
-
-trigger:
-  event:
-  - tag
