@@ -6,6 +6,11 @@ steps:
 # Loaf.Core 编译、发布Nuget
 - name: Loaf.Core 构建Nuget包
   image: mcr.microsoft.com/dotnet/sdk:6.0
+  environment:
+    API_KEY:
+      from_secret: nugetkey
+    NUGET_URL:
+      from_secret: nugeturl
   commands: 
   - rm -rf ./publish
   - dotnet restore
@@ -15,7 +20,7 @@ steps:
 # Loaf.Admin 编译、打包Docker镜像
 # - name: Loaf.Admin 编译
 #   image: mcr.microsoft.com/dotnet/sdk:6.0
-#   commands: 
+#   commands:  
 #   - dotnet build ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release
 #   - dotnet publish ./applications/Loaf.Admin/Loaf.Admin.csproj -c Release -o ./publish/LoafAdmin
 
