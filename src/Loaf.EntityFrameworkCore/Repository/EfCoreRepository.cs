@@ -15,9 +15,18 @@ namespace Loaf.EntityFrameworkCore.Repository;
 public class EfCoreRepository<TEntity> : IRepository<TEntity>
     where TEntity : class, IEntity
 {
-    private readonly DbContext _dbContext;
 
+    private readonly DbContext _dbContext;
     private DbSet<TEntity> DbSet => _dbContext.Set<TEntity>();
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public EfCoreRepository(ILoafDbContextFinder<TEntity> finder)
+    {
+        _dbContext = finder.GetDb();
+    }
+
 
     private async Task SaveChangeIfAutoSaveAsync(bool autoSave, CancellationToken cancellationToken = default)
     {
@@ -32,11 +41,6 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
         {
             _dbContext.SaveChanges();
         }
-    }
-
-    public EfCoreRepository(ILoafDbContextFinder<TEntity> finder)
-    {
-        _dbContext = finder.GetDb();
     }
 
     public void Delete(TEntity entity, bool autoSave = false)

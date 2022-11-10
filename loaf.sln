@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loaf.Repository.Core", "src\Loaf.Repository.Core\Loaf.Repository.Core.csproj", "{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Repository.Core", "src\Loaf.Repository.Core\Loaf.Repository.Core.csproj", "{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loaf.SqlSugar", "src\Loaf.SqlSugar\Loaf.SqlSugar.csproj", "{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{0EA45695-505E-43D7-96C6-FEDB07580677} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
 		{489D1E4F-CAEA-4D71-AAF5-A12C711B648A} = {09D960B8-4499-485A-A3FB-4C49B0A13D11}
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
+		{96F8B4E8-087B-4FD4-BBA0-CD74CDAD0CBA} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B23B9414-73CC-41D2-A8E7-EF46768ABC44}
