@@ -22,7 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{F36D3761-C1F2-446A-8B7F-C6DCD0E747AA}"
 	ProjectSection(SolutionItems) = preProject
 		.drone.yml = .drone.yml
+		.gitignore = .gitignore
 		common.props = common.props
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
