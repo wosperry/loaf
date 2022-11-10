@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案配置", "解�
 		common.props = common.props
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
+		Nuget.Config = Nuget.Config
 	EndProjectSection
 EndProject
 Global
