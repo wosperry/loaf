@@ -6,6 +6,11 @@ steps:
 # Loaf.Core 编译、发布Nuget
 - name: Loaf.Core 构建Nuget包
   image: mcr.microsoft.com/dotnet/sdk:6.0
+  environment:
+    NUGET_URL:
+      from_secret: NUGET_URL
+    API_KEY:
+      from_secret: API_KEY
   commands: 
   - rm -rf ./publish
   - dotnet restore
