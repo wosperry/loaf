@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Loaf.Core.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Loaf.Core.Modularity;
 
@@ -26,7 +27,7 @@ public static class LoafModuleHelper
     /// 调用模块的ConfigureService
     /// </summary>
     private static void InvokeConfigureService(IServiceCollection services, IConfiguration configuration = null)
-    {
+    { 
         foreach (var preConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PreConfigureService))
         {
             preConfigureService(new(services, configuration));
