@@ -7,10 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26165883-B3F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{09D960B8-4499-485A-A3FB-4C49B0A13D11}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "applications", "applications", "{EBB3FBD5-90D1-4200-B953-4B84546647CD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Admin", "applications\Loaf.Admin\Loaf.Admin.csproj", "{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Core", "src\Loaf.Core\Loaf.Core.csproj", "{836A5C23-8DEA-4117-A259-89D40217D0A7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Core.Tests", "test\Loaf.Core.Tests\Loaf.Core.Tests.csproj", "{C2193042-92E4-48CF-93D7-35E1E118C38C}"
@@ -25,8 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案配置", "解�
 		.gitignore = .gitignore
 		common.props = common.props
 		LICENSE.txt = LICENSE.txt
-		README.md = README.md
 		Nuget.Config = Nuget.Config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -35,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{836A5C23-8DEA-4117-A259-89D40217D0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{836A5C23-8DEA-4117-A259-89D40217D0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{836A5C23-8DEA-4117-A259-89D40217D0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,7 +52,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3626C3C0-8605-4DF1-BD48-1F10FF7ECCF3} = {EBB3FBD5-90D1-4200-B953-4B84546647CD}
 		{836A5C23-8DEA-4117-A259-89D40217D0A7} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
 		{C2193042-92E4-48CF-93D7-35E1E118C38C} = {09D960B8-4499-485A-A3FB-4C49B0A13D11}
 		{0EA45695-505E-43D7-96C6-FEDB07580677} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
