@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.Repository.Core.Attributes
 {
 
     [AttributeUsage(AttributeTargets.Property)] 

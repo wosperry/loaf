@@ -8,8 +8,11 @@ namespace Loaf.EntityFrameworkCore.Tests
     public abstract class LoafEntityFrameworkCoreTestBase
     {
         #region 属性、构造方法
+        // ReSharper disable once MemberCanBePrivate.Global
         public IConfiguration Configuration { get; }
+        // ReSharper disable once MemberCanBeProtected.Global
         public ServiceProvider Provider { get; }
+        // ReSharper disable once PublicConstructorInAbstractClass
         public LoafEntityFrameworkCoreTestBase()
         {
             var services = new ServiceCollection();
@@ -18,12 +21,14 @@ namespace Loaf.EntityFrameworkCore.Tests
                 .Build();
             services.AddSingleton(Configuration);
             services.RegisterService(typeof(LoafEntityFrameworkCoreTestBase).Assembly.GetTypes());
+            // ReSharper disable once VirtualMemberCallInConstructor
             ConfigureService(services);
             Provider = services.BuildServiceProvider();
         }
         #endregion
 
-        public virtual void ConfigureService(IServiceCollection services)
+        // ReSharper disable once MemberCanBeProtected.Global
+        protected virtual void ConfigureService(IServiceCollection services)
         {
 
         }

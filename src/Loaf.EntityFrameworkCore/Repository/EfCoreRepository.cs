@@ -5,10 +5,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Loaf.Core.Data; 
-using Loaf.EntityFrameworkCore.Repository.Extensions;
-using Loaf.EntityFrameworkCore.Repository.Interfaces;
+using Loaf.Core.Data;
 using Loaf.EntityFrameworkCore.UnitOfWork;
+using Loaf.Repository.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.EntityFrameworkCore.Repository;
