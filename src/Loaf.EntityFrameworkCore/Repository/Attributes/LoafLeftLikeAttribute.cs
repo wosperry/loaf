@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace Loaf.EntityFrameworkCore.Repository.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class LoafStartWithAttribute : LoafWhereAttribute
+    public class LoafLeftLikeAttribute : LoafWhereAttribute
     {
         public override Expression GetCompareExpression(Expression propertyExpression, Expression valueExpression)
         {

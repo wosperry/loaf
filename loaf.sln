@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.EntityFrameworkCore", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.EntityFrameworkCore.Tests", "test\Loaf.EntityFrameworkCore.Tests\Loaf.EntityFrameworkCore.Tests.csproj", "{489D1E4F-CAEA-4D71-AAF5-A12C711B648A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案配置", "解决方案配置", "{F36D3761-C1F2-446A-8B7F-C6DCD0E747AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F36D3761-C1F2-446A-8B7F-C6DCD0E747AA}"
 	ProjectSection(SolutionItems) = preProject
 		.drone.yml = .drone.yml
 		.gitignore = .gitignore
