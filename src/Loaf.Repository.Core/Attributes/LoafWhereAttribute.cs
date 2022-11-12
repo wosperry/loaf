@@ -21,10 +21,8 @@ namespace Loaf.Repository.Core.Attributes
         /// <param name="queryPropertyInfo">请求参数属性信息</param> 
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
-        public Expression AndAlso<TEntity>(Expression originExpression, PropertyInfo queryPropertyInfo, object value)
-        {
-            // TEntity 属性表达式
-            var ex_t = Expression.Parameter(typeof(TEntity), "t");
+        public Expression AndAlso<TEntity>(Expression originExpression,ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
+        { 
             var entityPropertyName = !string.IsNullOrEmpty(PropertyName) ? PropertyName : queryPropertyInfo.Name;
             var entityPropertyInfo = typeof(TEntity).GetProperty(entityPropertyName);
             var propertyExpression = Expression.Property(ex_t, entityPropertyName);
