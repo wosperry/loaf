@@ -13,7 +13,7 @@ public static class LoafModuleHelper
 {
     private static readonly List<LoafModule> Modules = new();
 
-    public static IServiceCollection AddModule<TModule>(this IServiceCollection services,
+    public static IServiceCollection AddLoafModule<TModule>(this IServiceCollection services,
         IConfiguration configuration = null)
         where TModule : LoafModule
     {
