@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace Loaf.Core.Encryptors
@@ -12,6 +11,7 @@ namespace Loaf.Core.Encryptors
         {
             _md5 = MD5.Create();
         }
+
         public string Encrypt(string password, string salt)
         {
             var bytes = Encoding.UTF8.GetBytes($"{password}-{salt}");

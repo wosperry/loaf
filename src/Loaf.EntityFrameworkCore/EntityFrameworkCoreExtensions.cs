@@ -14,12 +14,12 @@ namespace Loaf.EntityFrameworkCore;
 
 public static class EntityFrameworkCoreExtensions
 {
-    public static IServiceCollection AddLoafDbContext<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder, string> optionAction=null)
+    public static IServiceCollection AddLoafDbContext<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder, string> optionAction = null)
         where TDbContext : LoafDbContext<TDbContext>
     {
         return services
             .AddTransient<LoafSoftDeleteInterceptor>()
-            .AddTransient<DbContext,TDbContext>()
+            .AddTransient<DbContext, TDbContext>()
             .AddDbContext<TDbContext>((provider, options) =>
             {
                 var configuration = provider.GetService<IConfiguration>();
@@ -33,13 +33,13 @@ public static class EntityFrameworkCoreExtensions
                 {
                     throw new ConnectionStringNotSetException($"{typeof(TDbContext).Name}应设置 ConnectionStringNameAttribute，并提供与配置文件内配置的连接字符串相匹配的Key，若没有设置，则默认取 “Connectionstrings.Default”");
                 }
-                
+
                 optionAction?.Invoke(options, connectionString);
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);
                 options.ReplaceService<IModelCustomizer, LoafModelCustomize>();
             })
-            .AddTransient(typeof(ILoafDbContextFinder<>),typeof(LoafDbContextFinder<>))
-            .AddScoped(typeof(IRepository<>),typeof(EfCoreRepository<>))
+            .AddTransient(typeof(ILoafDbContextFinder<>), typeof(LoafDbContextFinder<>))
+            .AddScoped(typeof(IRepository<>), typeof(EfCoreRepository<>))
             .RegisterService(typeof(EntityFrameworkCoreExtensions).Assembly.GetTypes());
     }
 }

@@ -1,7 +1,5 @@
 ﻿#nullable enable
 
-using Loaf;
-
 namespace Loaf.Core.Data;
 
 public interface IPagination

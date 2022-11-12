@@ -1,14 +1,13 @@
 #nullable enable
+
 using System.Collections.Generic;
 using System.Linq;
 using Loaf.Core.Data;
-using Loaf.Core.DependencyInjection;
-using Loaf.EntityFrameworkCore.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Loaf.EntityFrameworkCore.UnitOfWork;
 
-public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>
+public class LoafDbContextFinder<TEntity> : ILoafDbContextFinder<TEntity>
     where TEntity : class, IEntity
 {
     private readonly DbContext _loafDbContext;
@@ -16,7 +15,7 @@ public class LoafDbContextFinder<TEntity>: ILoafDbContextFinder<TEntity>
     public LoafDbContextFinder(IEnumerable<DbContext> dbContexts)
     {
         var context = dbContexts.FirstOrDefault(context =>
-            context.Model.GetEntityTypes().Any(entityType => entityType.ClrType == typeof(TEntity))) ;
+            context.Model.GetEntityTypes().Any(entityType => entityType.ClrType == typeof(TEntity)));
         if (context is DbContext loafDbContext)
         {
             _loafDbContext = loafDbContext;

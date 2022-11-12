@@ -1,4 +1,5 @@
 ﻿#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
+
     private void SaveChangeIfAutoSave(bool autoSave)
     {
         if (autoSave)
@@ -47,7 +49,6 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
 
     public async Task DeleteAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
     {
-
         DbSet.Remove(entity);
         await SaveChangeIfAutoSaveAsync(autoSave, cancellationToken);
     }

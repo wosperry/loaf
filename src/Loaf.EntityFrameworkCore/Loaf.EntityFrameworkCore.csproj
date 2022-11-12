@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Loaf.Core\Loaf.Core.csproj" />
       <ProjectReference Include="..\Loaf.Repository.Core\Loaf.Repository.Core.csproj" />
     </ItemGroup>
 

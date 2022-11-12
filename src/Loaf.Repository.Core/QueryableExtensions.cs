@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection; 
-using Loaf.Core.Data;
+using System.Reflection;
 using Loaf.Core.CommonExtensions;
+using Loaf.Core.Data;
 using Loaf.Repository.Core.Attributes;
 
 namespace Loaf.Repository.Core;
@@ -41,8 +41,6 @@ public static class QueryableCommonExtensions
 
     public static IQueryable<TEntity> BuildQueryLambdaByParameter<TEntity, TParameter>(this IQueryable<TEntity> query, TParameter parameter)
     {
-        var ex_t = Expression.Parameter(typeof(TEntity), "t");
-
         Expression ex = Expression.Constant(true);
 
         foreach (var prop in typeof(TParameter).GetProperties())
@@ -58,45 +56,15 @@ public static class QueryableCommonExtensions
 
             foreach (var attr in attrs)
             {
-                // TODO: 添加更多判断的支持
-                // TODO: 抽离到IEnumerable供普通迭代使用
                 if (attr is LoafWhereAttribute whereAttr)
                 {
-                    var propertyName = whereAttr.PropertyName.IsNotEmpty() ? whereAttr.PropertyName : prop.Name;
-                    var propertyExpression = Expression.Property(ex_t, propertyName);
-
-                    var valueExpression = Expression.Convert(Expression.Constant(value), prop.PropertyType.Name.Contains(nameof(Nullable))
-                        ? prop.PropertyType.GetGenericArguments().First()
-                        : prop.PropertyType);
-
-                    ex = whereAttr switch
-                    {
-                        LoafEqualsAttribute => Expression.AndAlso(ex, Expression.Equal(propertyExpression, valueExpression)),
-                        LoafGreaterThanAttribute => Expression.AndAlso(ex, Expression.GreaterThan(propertyExpression, valueExpression)),
-                        LoafGreaterThanOrEqualAttribute => Expression.AndAlso(ex, Expression.GreaterThanOrEqual(propertyExpression, valueExpression)),
-                        LoafLessThanAttribute => Expression.AndAlso(ex, Expression.LessThan(propertyExpression, valueExpression)),
-                        LoafLessThanOrEqualAttribute => Expression.AndAlso(ex, Expression.LessThanOrEqual(propertyExpression, valueExpression)),
-                        LoafStartWithAttribute => Expression.AndAlso(ex, Expression.Call(propertyExpression, typeof(string).GetMethod(nameof(string.StartsWith), new Type[] { typeof(string) })!, valueExpression)),
-                        LoafContainsAttribute containAttr =>
-                            typeof(System.Collections.ICollection).IsAssignableFrom(prop.PropertyType) ?
-                                Expression.AndAlso(ex, Expression.Call(valueExpression, GetContainMethodInfo<TEntity>(prop, propertyName), propertyExpression)) :
-                                Expression.AndAlso(ex, Expression.Call(propertyExpression, GetContainMethodInfo(prop), valueExpression)),
-                        _ => ex
-                    };
+                    ex = whereAttr.AndAlso<TEntity>(ex, prop, value);
                 }
             }
         }
 
+        var ex_t = Expression.Parameter(typeof(TEntity), "t");
         var lambda = Expression.Lambda<Func<TEntity, bool>>(ex, ex_t);
         return query.Where(lambda);
-    }
-
-    private static MethodInfo GetContainMethodInfo(PropertyInfo prop)
-        => prop.PropertyType.GetMethod("Contains", new Type[] { prop.PropertyType }) ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
-
-    private static MethodInfo GetContainMethodInfo<TEntity>(PropertyInfo prop, string propertyName)
-    {
-        var t = typeof(TEntity).GetProperty(propertyName)?.PropertyType ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
-        return prop.PropertyType.GetMethod("Contains", new Type[] { t }) ?? throw new Exception($"{nameof(LoafContainsAttribute)}特性只能标记在string或者List<>");
     }
 }

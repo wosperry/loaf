@@ -1,16 +1,16 @@
-﻿using System.Diagnostics;
-using Loaf.Core.DependencyInjection;
+﻿using Loaf.Core.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 
 namespace Loaf.Core.Tests
 {
     public abstract class LoafCoreTestBase
     {
         #region 属性、构造方法
+
         public IConfigurationRoot Configuration { get; }
         public ServiceProvider Provider { get; }
+
         public LoafCoreTestBase()
         {
             var services = new ServiceCollection();
@@ -22,6 +22,7 @@ namespace Loaf.Core.Tests
 
             Provider = services.BuildServiceProvider();
         }
-        #endregion
+
+        #endregion 属性、构造方法
     }
 }
