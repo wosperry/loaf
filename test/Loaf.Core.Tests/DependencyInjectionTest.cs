@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using Loaf.Core.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Loaf.Core.Tests
@@ -8,16 +6,16 @@ namespace Loaf.Core.Tests
     /// <summary>
     /// 测试标记注入接口自动注册到容器
     /// </summary>
-    
-    public class DependencyInjectionTest: LoafCoreTestBase
-    { 
+
+    public class DependencyInjectionTest : LoafCoreTestBase
+    {
         [Fact(DisplayName = "注入接口类")]
         public void TestInjectServiceType()
         {
             var greetingService1 = Provider.GetService<ITransientGreetingService>();
             Assert.NotNull(greetingService1);
         }
-         
+
         [Fact(DisplayName = "注入实现类")]
         public void TestInjectImplementType()
         {
@@ -47,7 +45,6 @@ namespace Loaf.Core.Tests
                 Assert.NotNull(greetingService2);
                 Assert.Equal(greetingService1!.Id, greetingService2!.Id);
 
-
                 using (var scope1 = Provider.CreateScope())
                 {
                     greetingService2 = scope1.ServiceProvider.GetService<IScopedGreetingService>();
@@ -56,7 +53,7 @@ namespace Loaf.Core.Tests
                 }
             }
         }
-         
+
         [Fact(DisplayName = "单例")]
         public void TestSingleton()
         {
@@ -66,14 +63,14 @@ namespace Loaf.Core.Tests
             singletonGreetingService2 = Provider.GetService<ISingletonGreetingService>();
 
             Assert.NotNull(singletonGreetingService1);
-            Assert.NotNull(singletonGreetingService2); 
+            Assert.NotNull(singletonGreetingService2);
 
-            Assert.Equal(singletonGreetingService1!.Id, singletonGreetingService2!.Id); 
+            Assert.Equal(singletonGreetingService1!.Id, singletonGreetingService2!.Id);
 
             using (var scope = Provider.CreateScope())
             {
                 singletonGreetingService3 = scope.ServiceProvider.GetService<ISingletonGreetingService>();
-                Assert.NotNull(singletonGreetingService3); 
+                Assert.NotNull(singletonGreetingService3);
 
                 Assert.Equal(singletonGreetingService1.Id, singletonGreetingService3!.Id);
                 Assert.Equal(singletonGreetingService2.Id, singletonGreetingService3!.Id);
@@ -84,6 +81,7 @@ namespace Loaf.Core.Tests
     public interface ITransientGreetingService
     {
         public Guid Id { get; set; }
+
         string Hello();
     }
 
@@ -105,6 +103,7 @@ namespace Loaf.Core.Tests
     public interface IScopedGreetingService
     {
         public Guid Id { get; set; }
+
         string Hello();
     }
 
@@ -122,9 +121,11 @@ namespace Loaf.Core.Tests
             return "Hello";
         }
     }
+
     public interface ISingletonGreetingService
     {
         public Guid Id { get; set; }
+
         string Hello();
     }
 

@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Loaf.EntityFrameworkCore.UnitOfWork;
 
-public class UnitOfWork: IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly IEnumerable<DbContext> _contexts;
-    private List<IDbContextTransaction> Transactions { get; } = new (); 
+    private List<IDbContextTransaction> Transactions { get; } = new();
 
     public UnitOfWork(IEnumerable<DbContext> contexts)
     {

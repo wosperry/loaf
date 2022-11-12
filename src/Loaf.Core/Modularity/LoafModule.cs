@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace Loaf.Core.Modularity;
 
@@ -20,14 +18,13 @@ public abstract class LoafModule
 
     public virtual void PreInitialize(IApplicationBuilder app)
     {
-        
     }
+
     public virtual void Initialize(IApplicationBuilder app)
     {
-        
     }
+
     public virtual void PostInitialize(IApplicationBuilder app)
     {
-        
     }
 }

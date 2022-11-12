@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Loaf.Core.CommonExtensions
+﻿namespace Loaf.Core.CommonExtensions
 {
     public static class StringExtensions
     {

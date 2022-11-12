@@ -1,4 +1,5 @@
 #nullable enable
+
 using System;
 using Loaf.Core.Data;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +14,7 @@ public interface ILoafDbContextFinder<TEntity>
 
 public class LoafDbContextNotFoundException : Exception
 {
-    public LoafDbContextNotFoundException(string message):base(message)
+    public LoafDbContextNotFoundException(string message) : base(message)
     {
-        
     }
 }

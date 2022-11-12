@@ -7,12 +7,11 @@ using Loaf.EntityFrameworkCore.Repository.Attributes;
 namespace Loaf.Repository.Core.Attributes
 {
     public abstract class LoafWhereAttribute : Attribute
-    { 
+    {
         /// <summary>
         /// 实体Property名称
         /// </summary>
         public string PropertyName { get; set; }
-
 
         /// <summary>
         /// 拼接AndAlso
@@ -25,12 +24,11 @@ namespace Loaf.Repository.Core.Attributes
         /// <returns>拼接后表达式</returns>
         public Expression AndAlso<TEntity>(Expression originExpression, PropertyInfo queryPropertyInfo, object value)
         {
-            // TEntity 属性表达式 
+            // TEntity 属性表达式
             var ex_t = Expression.Parameter(typeof(TEntity), "t");
             var entityPropertyName = !string.IsNullOrEmpty(PropertyName) ? PropertyName : queryPropertyInfo.Name;
             var entityPropertyInfo = typeof(TEntity).GetProperty(entityPropertyName);
             var propertyExpression = Expression.Property(ex_t, entityPropertyName);
-
 
             // 区分是否可空类型，可空则获取第一个泛型参数
             var destinyType = queryPropertyInfo.PropertyType.Name.Contains(nameof(Nullable))
@@ -39,15 +37,15 @@ namespace Loaf.Repository.Core.Attributes
             var valueExpression = Expression.Convert(Expression.Constant(value), destinyType);
             OnAppendingExpression(new() { Value = value, EntityPropertyInfo = entityPropertyInfo });
             return Expression.AndAlso(originExpression, GetCompareExpression(propertyExpression, valueExpression));
-        } 
+        }
 
         /// <summary>
         /// 获取比较表达式
-        /// </summary>  
+        /// </summary>
         public abstract Expression GetCompareExpression(Expression left, Expression right);
+
         public virtual void OnAppendingExpression(LoafExpressionAppendingContext context)
         {
-
         }
     }
 }

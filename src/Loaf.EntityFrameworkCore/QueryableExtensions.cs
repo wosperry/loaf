@@ -25,5 +25,5 @@ public static class QueryableExtensions
             .PageBy(pagination)
             .ToListAsync(cancellationToken);
         return new(total, entities);
-    }    
+    }
 }

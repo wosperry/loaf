@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Loaf.Core.Data.Dtos
+﻿namespace Loaf.Core.Data.Dtos
 {
     public class EntityDto<TKey> where TKey : struct
     {

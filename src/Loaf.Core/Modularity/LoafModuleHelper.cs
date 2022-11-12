@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Loaf.Core.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Loaf.Core.DependencyInjection;
 
 namespace Loaf.Core.Modularity;
 
@@ -64,7 +64,6 @@ public static class LoafModuleHelper
 
         return services;
     }
-
 
     public static IApplicationBuilder Initialize(this IApplicationBuilder app)
     {

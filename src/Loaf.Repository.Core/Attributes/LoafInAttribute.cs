@@ -16,7 +16,6 @@ namespace Loaf.EntityFrameworkCore.Repository.Attributes
             return Expression.Call(right, _method, left);
         }
 
-
         public override void OnAppendingExpression(LoafExpressionAppendingContext context)
         {
             try
@@ -32,7 +31,7 @@ namespace Loaf.EntityFrameworkCore.Repository.Attributes
             }
             catch (Exception)
             {
-                throw ;
+                throw;
             }
         }
     }

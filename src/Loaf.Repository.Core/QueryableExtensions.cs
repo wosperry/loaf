@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection; 
-using Loaf.Core.Data;
+using System.Reflection;
 using Loaf.Core.CommonExtensions;
+using Loaf.Core.Data;
 using Loaf.Repository.Core.Attributes;
-using Loaf.EntityFrameworkCore.Repository.Attributes;
 
 namespace Loaf.Repository.Core;
 
@@ -42,7 +41,6 @@ public static class QueryableCommonExtensions
 
     public static IQueryable<TEntity> BuildQueryLambdaByParameter<TEntity, TParameter>(this IQueryable<TEntity> query, TParameter parameter)
     {
-
         Expression ex = Expression.Constant(true);
 
         foreach (var prop in typeof(TParameter).GetProperties())
@@ -57,7 +55,7 @@ public static class QueryableCommonExtensions
             }
 
             foreach (var attr in attrs)
-            { 
+            {
                 if (attr is LoafWhereAttribute whereAttr)
                 {
                     ex = whereAttr.AndAlso<TEntity>(ex, prop, value);

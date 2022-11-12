@@ -1,6 +1,5 @@
 namespace Loaf.Core.DependencyInjection;
 
-public interface IScoped:IDependencyInjection
+public interface IScoped : IDependencyInjection
 {
-    
 }
