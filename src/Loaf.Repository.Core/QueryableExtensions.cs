@@ -42,6 +42,7 @@ public static class QueryableCommonExtensions
     public static IQueryable<TEntity> BuildQueryLambdaByParameter<TEntity, TParameter>(this IQueryable<TEntity> query, TParameter parameter)
     {
         Expression ex = Expression.Constant(true);
+        var ex_t = Expression.Parameter(typeof(TEntity), "t");
 
         foreach (var prop in typeof(TParameter).GetProperties())
         {
@@ -58,12 +59,11 @@ public static class QueryableCommonExtensions
             {
                 if (attr is LoafWhereAttribute whereAttr)
                 {
-                    ex = whereAttr.AndAlso<TEntity>(ex, prop, value);
+                    ex = whereAttr.AndAlso<TEntity>(ex, ex_t, prop, value);
                 }
             }
         }
 
-        var ex_t = Expression.Parameter(typeof(TEntity), "t");
         var lambda = Expression.Lambda<Func<TEntity, bool>>(ex, ex_t);
         return query.Where(lambda);
     }
