@@ -25,10 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Repository.Core", "src\Loaf.Repository.Core\Loaf.Repository.Core.csproj", "{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{2C876115-A392-4F8A-B8A1-8E47BC4353FD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Loaf.Admin", "..\loaf-admin\Loaf.Admin\Loaf.Admin.csproj", "{1098CC37-5BA6-413E-A711-B82CAA903EAB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +47,6 @@ Global
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1098CC37-5BA6-413E-A711-B82CAA903EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1098CC37-5BA6-413E-A711-B82CAA903EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1098CC37-5BA6-413E-A711-B82CAA903EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1098CC37-5BA6-413E-A711-B82CAA903EAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,7 +56,6 @@ Global
 		{C2193042-92E4-48CF-93D7-35E1E118C38C} = {09D960B8-4499-485A-A3FB-4C49B0A13D11}
 		{0EA45695-505E-43D7-96C6-FEDB07580677} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
 		{3EEAADFA-9692-4ECA-BA4E-2AB45912EF75} = {26165883-B3FC-4A01-A15D-D87CF07EE385}
-		{1098CC37-5BA6-413E-A711-B82CAA903EAB} = {2C876115-A392-4F8A-B8A1-8E47BC4353FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B23B9414-73CC-41D2-A8E7-EF46768ABC44}
