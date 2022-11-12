@@ -18,7 +18,7 @@ namespace Loaf.Repository.Core.Attributes
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="originExpression">原始表达式</param>
-        /// <param name="queryPropertyInfo">请求参数属性信息</param>
+        /// <param name="queryPropertyInfo">请求参数属性信息</param> 
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
         public Expression AndAlso<TEntity>(Expression originExpression,ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
@@ -32,6 +32,8 @@ namespace Loaf.Repository.Core.Attributes
                 ? queryPropertyInfo.PropertyType.GetGenericArguments().First()
                 : queryPropertyInfo.PropertyType;
             var valueExpression = Expression.Convert(Expression.Constant(value), destinyType);
+
+
             OnAppendingExpression(new() { Value = value, EntityPropertyInfo = entityPropertyInfo });
             return Expression.AndAlso(originExpression, GetCompareExpression(propertyExpression, valueExpression));
         }

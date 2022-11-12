@@ -18,20 +18,13 @@ namespace Loaf.EntityFrameworkCore.Repository.Attributes
 
         public override void OnAppendingExpression(LoafExpressionAppendingContext context)
         {
-            try
+            if (context.Value is IEnumerable)
             {
-                if (context.Value is IEnumerable)
-                {
-                    _method = context.Value.GetType().GetMethod("Contains", new Type[] { context.EntityPropertyInfo.PropertyType });
-                }
-                else
-                {
-                    throw new Exception($"{nameof(LoafInAttribute)}特性只能标记在string或者List<>");
-                }
+                _method = context.Value.GetType().GetMethod("Contains", new Type[] { context.EntityPropertyInfo.PropertyType });
             }
-            catch (Exception)
+            else
             {
-                throw;
+                throw new Exception($"{nameof(LoafInAttribute)}特性只能标记在List<>");
             }
         }
     }
