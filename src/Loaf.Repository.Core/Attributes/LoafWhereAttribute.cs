@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Loaf.EntityFrameworkCore.Repository.Attributes;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.Repository.Core.Attributes
 {
     public abstract class LoafWhereAttribute : Attribute
     { 
@@ -22,7 +23,7 @@ namespace Loaf.EntityFrameworkCore.Repository.Attributes
         /// <param name="entityPropertyInfo">TEntity的属性类型</param>
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
-        public BinaryExpression AndAlso<TEntity>(Expression originExpression, PropertyInfo queryPropertyInfo, object value)
+        public Expression AndAlso<TEntity>(Expression originExpression, PropertyInfo queryPropertyInfo, object value)
         {
             // TEntity 属性表达式 
             var ex_t = Expression.Parameter(typeof(TEntity), "t");

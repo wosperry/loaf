@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Loaf.Repository.Core.Attributes;
 
 namespace Loaf.EntityFrameworkCore.Repository.Attributes
 {

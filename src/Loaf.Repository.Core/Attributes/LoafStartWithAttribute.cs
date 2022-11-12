@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.Repository.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class LoafLeftLikeAttribute : LoafWhereAttribute
+    public class LoafStartWithAttribute : LoafWhereAttribute
     {
         public override Expression GetCompareExpression(Expression propertyExpression, Expression valueExpression)
         {

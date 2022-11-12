@@ -5,10 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Loaf.Core.Data;
-using Loaf.Core.Data.Dtos;
 
-namespace Loaf.EntityFrameworkCore.Repository.Interfaces;
+namespace Loaf.Core.Data;
 
 public interface IRepository<TEntity> where TEntity : class, IEntity
 {
