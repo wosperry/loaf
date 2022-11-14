@@ -53,9 +53,9 @@ public static class LoafModuleHelper
         var module = (Activator.CreateInstance(moduleType) as LoafModule)!;
         Modules.Add(module);
 
-        if (moduleType.IsDefined(typeof(AddModuleAttribute), false))
+        if (moduleType.IsDefined(typeof(DependsOnAttribute), false))
         {
-            var dependsAttribute = moduleType.GetCustomAttribute<AddModuleAttribute>()!;
+            var dependsAttribute = moduleType.GetCustomAttribute<DependsOnAttribute>()!;
             foreach (var dependModuleType in dependsAttribute.ModuleTypes)
             {
                 LoadModules(services, dependModuleType);
