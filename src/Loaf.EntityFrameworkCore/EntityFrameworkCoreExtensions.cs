@@ -15,7 +15,7 @@ namespace Loaf.EntityFrameworkCore;
 public static class EntityFrameworkCoreExtensions
 {
     public static IServiceCollection AddLoafDbContext<TDbContext>(this IServiceCollection services, Action<DbContextOptionsBuilder, string> optionAction = null)
-        where TDbContext : DbContext
+        where TDbContext : LoafDbContext<DbContext>
     {
         return services
             .AddTransient<LoafSoftDeleteInterceptor>()

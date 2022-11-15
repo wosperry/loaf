@@ -26,5 +26,5 @@ public class LoafDbContextFinder<TEntity> : ILoafDbContextFinder<TEntity>
         }
     }
 
-    public DbContext GetDb() => _loafDbContext;
+    public DbContext GetCurrentDbContext() => _loafDbContext;
 }

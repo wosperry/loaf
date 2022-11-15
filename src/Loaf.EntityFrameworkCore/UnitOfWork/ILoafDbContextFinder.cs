@@ -9,7 +9,7 @@ namespace Loaf.EntityFrameworkCore.UnitOfWork;
 public interface ILoafDbContextFinder<TEntity>
     where TEntity : class, IEntity
 {
-    public DbContext GetDb();
+    public DbContext GetCurrentDbContext();
 }
 
 public class LoafDbContextNotFoundException : Exception
