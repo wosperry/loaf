@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Loaf.Repository.Core\Loaf.Repository.Core.csproj" />
+      <ProjectReference Include="..\Loaf.EntityFrameworkCore.Extensions\Loaf.EntityFrameworkCore.Extensions.csproj" />
     </ItemGroup>
 
 </Project>
