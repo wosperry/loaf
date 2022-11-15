@@ -1,14 +1,12 @@
 # Loaf
 
-## 计划添加的功能
-- [x] 类似ABP的Module
-- [x] 根据特性自动注册服务
-- [x] 分页查询时通过对参数class标记特殊特性，代替写一堆WhereIf代码
-- [x] 通用仓储IRepository封装，方便实体增删改查
-- [x] 支持软删除功能，在EFCore查询与删除动作时拦截处理
+## 开始
 
-## 待办
-- [ ] 支持数据库字段区分多租户
-- [ ] 不知道该加啥，慢慢看
-- [ ] 不知道该加啥，慢慢看
-- [ ] 不知道该加啥，慢慢看
+#### 1. 创建一个 API 项目
+[![创建项目](http://wosperry.com:8090/img/2022/11/15/6372f2cc30dd6.png)](http://wosperry.com:8090/img/2022/11/15/6372f2cc30dd6.png)
+#### 2. 添加依赖
+打开Nuget包管理工具
+[![添加依赖](http://wosperry.com:8090/img/2022/11/15/6372f40fd13be.png)](http://wosperry.com:8090/img/2022/11/15/6372f40fd13be.png)
+ 
+## TODO
+- [ ] 抽离SoftDelete实现，Loaf.EntityFrameworkCore 由于 IModelCustomizer、SaveChangesInterceptor 考虑加一层接口或者配置基类，以便于上层应用成对添加过滤
