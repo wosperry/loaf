@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Linq.Expressions;
 using System.Reflection;
-using Loaf.Repository.Core.Attributes;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class LoafInAttribute : LoafWhereAttribute

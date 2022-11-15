@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Loaf.Repository.Core.Attributes
+namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class LoafLessThanAttribute : LoafWhereAttribute

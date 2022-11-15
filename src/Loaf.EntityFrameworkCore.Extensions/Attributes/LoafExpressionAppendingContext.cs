@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
     public class LoafExpressionAppendingContext
     {
