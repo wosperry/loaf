@@ -41,6 +41,4 @@ volumes:
 - name: www
   host: 
     path: .
-depends_on:
-  - loaf
   
