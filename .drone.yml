@@ -24,21 +24,5 @@ steps:
     #- dotnet nuget push "./publish/nupkgs/*.nupkg" -k $API_KEY2  -s $NUGET_URL2
 trigger:
   event:
-  - tag
-
----
-type: docker
-kind: pipeline
-name: publish
-
-steps:
-  - name: 发布Index
-    image: alpine
-    volumes:
-    - name: www
-      path: /www
-volumes:
-- name: www
-  host: 
-    path: .
+  - tag 
   
