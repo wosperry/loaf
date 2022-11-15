@@ -153,6 +153,7 @@ public class EfCoreRepository<TEntity> : IRepository<TEntity>
         return DbSet.AsQueryable<TEntity>();
     }
 
+    // TODO：加一个Action供外面修改query
     public IQueryable<TEntity> GetQueryable<TParameter>(TParameter parameter)
     {
         return DbSet.AsQueryable<TEntity>().BuildQueryLambdaByParameter(parameter);

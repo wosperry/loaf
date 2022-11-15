@@ -22,7 +22,11 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
         public Expression AndAlso<TEntity>(Expression originExpression,ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
-        { 
+        {
+            if (value is null)
+            {
+                return originExpression;
+            }
             var entityPropertyName = !string.IsNullOrEmpty(PropertyName) ? PropertyName : queryPropertyInfo.Name;
             var entityPropertyInfo = typeof(TEntity).GetProperty(entityPropertyName);
             var propertyExpression = Expression.Property(ex_t, entityPropertyName);
@@ -32,7 +36,6 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
                 ? queryPropertyInfo.PropertyType.GetGenericArguments().First()
                 : queryPropertyInfo.PropertyType;
             var valueExpression = Expression.Convert(Expression.Constant(value), destinyType);
-
 
             OnAppendingExpression(new() { Value = value, EntityPropertyInfo = entityPropertyInfo });
             return Expression.AndAlso(originExpression, GetCompareExpression(propertyExpression, valueExpression));
