@@ -12,6 +12,7 @@ public class LoafModelCustomize : ModelCustomizer
 {
     public LoafModelCustomize(ModelCustomizerDependencies dependencies) : base(dependencies)
     {
+        
     }
 
     public override void Customize(ModelBuilder modelBuilder, DbContext context)
