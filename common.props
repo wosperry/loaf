@@ -6,6 +6,7 @@
     <PackageProjectUrl>https://loaf.wosperry.com/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
+    <Authors>wosperry</Authors>
     <RepositoryUrl>https://github.com/wosperry/loaf/</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
