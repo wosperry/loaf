@@ -7,6 +7,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <Authors>wosperry</Authors>
+    <Copyright>wosperry</Copyright>
     <RepositoryUrl>https://github.com/wosperry/loaf/</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
