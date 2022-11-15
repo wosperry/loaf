@@ -36,7 +36,8 @@ public static class EntityFrameworkCoreExtensions
 
                 optionAction?.Invoke(options, connectionString);
                 options.AddInterceptors(provider.GetService<LoafSoftDeleteInterceptor>()!);
-                options.ReplaceService<IModelCustomizer, LoafModelCustomize>();
+                options.ReplaceService<IModelCustomizer, LoafModelCustomizer>();
+                options.UseApplicationServiceProvider(provider);
             })
             .AddTransient(typeof(ILoafDbContextFinder<>), typeof(LoafDbContextFinder<>))
             .AddScoped(typeof(IRepository<>), typeof(EfCoreRepository<>))
