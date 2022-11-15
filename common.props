@@ -11,4 +11,7 @@
     <RepositoryUrl>https://github.com/wosperry/loaf/</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="loaf.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
 </Project>
