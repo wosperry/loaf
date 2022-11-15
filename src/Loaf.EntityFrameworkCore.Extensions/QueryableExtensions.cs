@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Loaf.Core.CommonExtensions;
 using Loaf.Core.Data;
-using Loaf.Repository.Core.Attributes;
+using Loaf.EntityFrameworkCore.Extensions.Attributes;
 
 namespace Loaf.Repository.Core;
 

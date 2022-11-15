@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Loaf.Repository.Core.Attributes;
 
-namespace Loaf.EntityFrameworkCore.Repository.Attributes
+namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class LoafLeftLikeAttribute : LoafWhereAttribute

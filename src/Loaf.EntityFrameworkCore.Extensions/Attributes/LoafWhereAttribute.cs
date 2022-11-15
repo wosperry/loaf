@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using Loaf.EntityFrameworkCore.Repository.Attributes;
+using System.Reflection; 
 
-namespace Loaf.Repository.Core.Attributes
+namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
     public abstract class LoafWhereAttribute : Attribute
     {
@@ -18,6 +17,7 @@ namespace Loaf.Repository.Core.Attributes
         /// </summary>
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="originExpression">原始表达式</param>
+        /// <param name="ex_t">t=>t.Name 中的t</param>
         /// <param name="queryPropertyInfo">请求参数属性信息</param> 
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
