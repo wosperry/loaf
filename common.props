@@ -2,7 +2,7 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
     <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
-    <PackageIcon>https://wosperry.com/lsky/img/2022/11/10/636cb6a31ac61.png</PackageIcon>
+    <PackageIconUrl>https://wosperry.com/lsky/img/2022/11/10/636cb6a31ac61.png</PackageIconUrl>
     <PackageProjectUrl>https://loaf.wosperry.com/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
