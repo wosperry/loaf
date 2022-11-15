@@ -20,7 +20,7 @@ public class UnitOfWork : IUnitOfWork
     /// 开始事务
     /// </summary>
     /// <param name="cancellationToken"></param>
-    public async Task BeginAsync(CancellationToken cancellationToken)
+    public async Task BeginAsync(CancellationToken cancellationToken = default)
     {
         foreach (var context in _contexts)
         {
@@ -32,7 +32,7 @@ public class UnitOfWork : IUnitOfWork
     /// 回滚事务
     /// </summary>
     /// <param name="cancellationToken"></param>
-    public async Task RollBackAsync(CancellationToken cancellationToken)
+    public async Task RollBackAsync(CancellationToken cancellationToken = default)
     {
         foreach (var transaction in Transactions)
         {
@@ -44,7 +44,7 @@ public class UnitOfWork : IUnitOfWork
     /// 提交事务
     /// </summary>
     /// <param name="cancellationToken"></param>
-    public async Task CommitAsync(CancellationToken cancellationToken)
+    public async Task CommitAsync(CancellationToken cancellationToken = default)
     {
         foreach (var transaction in Transactions)
         {

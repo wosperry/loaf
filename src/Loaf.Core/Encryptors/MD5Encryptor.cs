@@ -17,7 +17,7 @@ namespace Loaf.Core.Encryptors
             var bytes = Encoding.UTF8.GetBytes($"{password}-{salt}");
             var hash = _md5.ComputeHash(bytes);
             // 这里认为不可能为空
-            StringBuilder stringBuilder = new StringBuilder();
+            var stringBuilder = new StringBuilder();
             foreach (byte b in bytes)
             {
                 //{0:X2} 大写
