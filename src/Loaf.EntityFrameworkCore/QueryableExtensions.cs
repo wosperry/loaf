@@ -13,7 +13,7 @@ public static class QueryableExtensions
     /// 根据分页参数获取分页结果
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    /// <param name="query">quaryable</param>
+    /// <param name="query">过滤条件</param>
     /// <param name="pagination">分页参数，实现了分页接口的参数都行</param>
     /// <param name="cancellationToken">取消标识</param>
     /// <returns></returns>
