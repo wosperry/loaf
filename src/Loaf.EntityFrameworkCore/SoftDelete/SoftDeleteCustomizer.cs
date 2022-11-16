@@ -13,6 +13,7 @@ public class SoftDeleteCustomizer : IModelCustomizing, ISingleton
         {
             if (!typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType)) continue;
 
+            // t => t.Name == ""
             var parameterExpression = Expression.Parameter(entityType.ClrType, "t");
             var lambdaExpression = Expression.Lambda(
                 Expression.Equal(

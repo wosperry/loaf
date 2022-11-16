@@ -42,29 +42,20 @@ public static class QueryableCommonExtensions
     public static IQueryable<TEntity> BuildQueryLambdaByParameter<TEntity, TParameter>(this IQueryable<TEntity> query, TParameter parameter)
     {
         Expression ex = Expression.Constant(true);
+
         var ex_t = Expression.Parameter(typeof(TEntity), "t");
 
         foreach (var prop in typeof(TParameter).GetProperties())
-        {
-            var attrs = prop.GetCustomAttributes();
-            var value = prop.GetValue(parameter);
-
-            // 没有值的时候不查询
-            if (value is null)
-            {
-                continue;
-            }
-
-            foreach (var attr in attrs)
+        { 
+            foreach (var attr in prop.GetCustomAttributes())
             {
                 if (attr is LoafWhereAttribute whereAttr)
                 {
-                    ex = whereAttr.AndAlso<TEntity>(ex, ex_t, prop, value);
+                    ex = whereAttr.AndAlso<TEntity>(ex, ex_t, prop, prop.GetValue(parameter));
                 }
             }
         }
 
-        var lambda = Expression.Lambda<Func<TEntity, bool>>(ex, ex_t);
-        return query.Where(lambda);
+        return query.Where(Expression.Lambda<Func<TEntity, bool>>(ex, ex_t));
     }
 }
