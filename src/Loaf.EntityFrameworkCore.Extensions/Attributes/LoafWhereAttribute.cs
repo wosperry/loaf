@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection; 
+using System.Reflection;
 
 namespace Loaf.EntityFrameworkCore.Extensions.Attributes
 {
@@ -18,15 +18,20 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
         /// <typeparam name="TEntity">实体类型</typeparam>
         /// <param name="originExpression">原始表达式</param>
         /// <param name="ex_t">t=>t.Name 中的t</param>
-        /// <param name="queryPropertyInfo">请求参数属性信息</param> 
+        /// <param name="queryPropertyInfo">请求参数属性信息</param>
         /// <param name="value">值</param>
         /// <returns>拼接后表达式</returns>
-        public Expression AndAlso<TEntity>(Expression originExpression,ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
+        public Expression AndAlso<TEntity>(Expression originExpression, ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
         {
             if (value is null)
-            {
                 return originExpression;
-            }
+
+            var (propertyExpression, valueExpression) = GetExpressions<TEntity>(originExpression, ex_t, queryPropertyInfo, value);
+            return Expression.AndAlso(originExpression, GetCompareExpression(propertyExpression, valueExpression));
+        }
+
+        private (Expression propertyExpression, Expression valueExpression) GetExpressions<TEntity>(Expression originExpression, ParameterExpression ex_t, PropertyInfo queryPropertyInfo, object value)
+        {
             var entityPropertyName = !string.IsNullOrEmpty(PropertyName) ? PropertyName : queryPropertyInfo.Name;
             var entityPropertyInfo = typeof(TEntity).GetProperty(entityPropertyName);
             var propertyExpression = Expression.Property(ex_t, entityPropertyName);
@@ -38,7 +43,7 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
             var valueExpression = Expression.Convert(Expression.Constant(value), destinyType);
 
             OnAppendingExpression(new() { Value = value, EntityPropertyInfo = entityPropertyInfo });
-            return Expression.AndAlso(originExpression, GetCompareExpression(propertyExpression, valueExpression));
+            return (propertyExpression, valueExpression);
         }
 
         /// <summary>
