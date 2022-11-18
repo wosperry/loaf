@@ -4,7 +4,8 @@
     {
         public static bool IsNotEmpty(this string value)
         {
-            return !string.IsNullOrWhiteSpace(value);
+            // 字符串不为空时返回true
+            return !string.IsNullOrEmpty(value);
         }
     }
 }

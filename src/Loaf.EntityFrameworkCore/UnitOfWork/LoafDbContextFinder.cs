@@ -14,6 +14,7 @@ public class LoafDbContextFinder<TEntity> : ILoafDbContextFinder<TEntity>
 
     public LoafDbContextFinder(IEnumerable<DbContext> dbContexts)
     {
+        // 注入的DbContexts中，找到TEntity的DbContext实例
         var context = dbContexts.FirstOrDefault(context =>
             context.Model.GetEntityTypes().Any(entityType => entityType.ClrType == typeof(TEntity)));
         if (context is DbContext loafDbContext)

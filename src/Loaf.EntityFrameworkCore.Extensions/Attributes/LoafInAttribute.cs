@@ -10,9 +10,9 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
     {
         private MethodInfo _method;
 
-        public override Expression GetCompareExpression(Expression left, Expression right)
+        public override Expression GetCompareExpression(Expression propertyExpression, Expression valueExpression)
         {
-            return Expression.Call(right, _method, left);
+            return Expression.Call(valueExpression, _method, propertyExpression); 
         }
 
         public override void OnAppendingExpression(LoafExpressionAppendingContext context)
@@ -25,6 +25,6 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
             {
                 throw new Exception($"{nameof(LoafInAttribute)}特性只能标记在List<>");
             }
-        }
+        } 
     }
 }

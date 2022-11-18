@@ -13,7 +13,10 @@ public static class QueryableCommonExtensions
     /// <summary>
     /// WhereIf
     /// </summary>
-    public static IQueryable<TEntity> WhereIf<TEntity>(this IQueryable<TEntity> queryable, bool condition, Expression<Func<TEntity, bool>> predicate) where TEntity : class => condition ? queryable.Where(predicate) : queryable;
+    public static IQueryable<TEntity> WhereIf<TEntity>(this IQueryable<TEntity> queryable, bool condition, Expression<Func<TEntity, bool>> predicate) where TEntity : class
+    {
+        return condition ? queryable.Where(predicate) : queryable;
+    }
 
     public static IQueryable<TEntity> PageBy<TEntity>(this IQueryable<TEntity> queryable, IPagination pagination)
     {
