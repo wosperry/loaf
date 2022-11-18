@@ -27,21 +27,22 @@ public static class LoafModuleHelper
     /// </summary>
     private static void InvokeConfigureService(IServiceCollection services, IConfiguration configuration = null)
     {
-        foreach (var preConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PreConfigureService))
+        foreach (var module in Modules)
         {
-            preConfigureService(new(services, configuration));
+            module.PreConfigureService(new(services, configuration));
         }
 
         foreach (var module in Modules)
         {
             // TODO：加一个 LoafModuleOptions，AddLoafModule里加个Action，用于配置是否自动注册
             services.RegisterService(module.GetType().Assembly.GetTypes());
+            
             module.ConfigureService(new(services, configuration));
         }
 
-        foreach (var postConfigureService in Modules.Select(m => (Action<LoafModuleContext>)m.PostConfigureService))
+        foreach (var module in Modules)
         {
-            postConfigureService(new(services, configuration));
+            module.PostConfigureService(new(services, configuration));
         }
     }
 
@@ -67,19 +68,17 @@ public static class LoafModuleHelper
 
     public static IApplicationBuilder Initialize(this IApplicationBuilder app)
     {
-        foreach (var action in Modules.Select(m => (Action<IApplicationBuilder>)m.PreInitialize))
+        foreach (var module in Modules)
         {
-            action(app);
+            module.PreInitialize(app);
         }
-
-        foreach (var action in Modules.Select(m => (Action<IApplicationBuilder>)m.Initialize))
+        foreach (var module in Modules)
         {
-            action(app);
+            module.Initialize(app);
         }
-
-        foreach (var action in Modules.Select(m => (Action<IApplicationBuilder>)m.PostInitialize))
+        foreach (var module in Modules)
         {
-            action(app);
+            module.PostInitialize(app);
         }
 
         return app;

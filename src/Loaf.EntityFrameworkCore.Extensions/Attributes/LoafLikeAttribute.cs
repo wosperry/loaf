@@ -8,8 +8,8 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
     {
         public override Expression GetCompareExpression(Expression propertyExpression, Expression valueExpression)
         {
-            var stringStartWith = typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
-            return Expression.Call(propertyExpression, stringStartWith, valueExpression);
+            var stringContains = typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
+            return Expression.Call(propertyExpression, stringContains, valueExpression);
         }
     }
 }

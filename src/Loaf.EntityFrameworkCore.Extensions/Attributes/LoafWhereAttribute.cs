@@ -30,7 +30,6 @@ namespace Loaf.EntityFrameworkCore.Extensions.Attributes
             var entityPropertyName = !string.IsNullOrEmpty(PropertyName) ? PropertyName : queryPropertyInfo.Name;
             var entityPropertyInfo = typeof(TEntity).GetProperty(entityPropertyName);
             var propertyExpression = Expression.Property(ex_t, entityPropertyName);
-
             // 区分是否可空类型，可空则获取第一个泛型参数
             var destinyType = queryPropertyInfo.PropertyType.Name.Contains(nameof(Nullable))
                 ? queryPropertyInfo.PropertyType.GetGenericArguments().First()

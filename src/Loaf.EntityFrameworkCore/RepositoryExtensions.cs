@@ -26,22 +26,4 @@ public static class RepositoryExtensions
             .ToListAsync(cancellationToken);
         return new(total, entities); 
     }
-    ///// <summary>
-    ///// 根据分页参数获取分页结果
-    ///// </summary>
-    ///// <typeparam name="TEntity">实体类型</typeparam>
-    ///// <typeparam name="TQueryParam">请求参数的类型</typeparam>
-    ///// <param name="repository">过滤条件</param>
-    ///// <param name="queryParameter"></param> 
-    ///// <param name="cancellationToken">取消标识</param>
-    ///// <returns></returns>
-    //public static Task<PagedResult<TEntity>> GetPagedResultAsync<TEntity, TQueryParam>(this IRepository<TEntity> repository, TQueryParam queryParameter,
-    //    Func<IQueryable<TEntity>, Func<TEntity, bool>> predicateFunc,
-    //    CancellationToken cancellationToken = default) where TEntity : class, IEntity where TQueryParam : IPagination
-    //{
-    //    var query = repository.GetQueryable(queryParameter);
-     
-
-    //    return query.GetPagedResultAsync(queryParameter, cancellationToken: cancellationToken);
-    //}
 } 

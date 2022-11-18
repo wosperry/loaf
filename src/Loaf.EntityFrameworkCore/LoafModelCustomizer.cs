@@ -19,7 +19,6 @@ public class LoafModelCustomizer : ModelCustomizer
         Provider = provider;
     }
 
-
     public override void Customize(ModelBuilder modelBuilder, DbContext context)
     {
         base.Customize(modelBuilder, context);
