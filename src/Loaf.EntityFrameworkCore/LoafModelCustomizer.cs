@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Loaf.EntityFrameworkCore;
 
@@ -14,16 +13,20 @@ namespace Loaf.EntityFrameworkCore;
 public class LoafModelCustomizer : ModelCustomizer
 {
     public IServiceProvider Provider { get; }
-    public LoafModelCustomizer(ModelCustomizerDependencies dependencies, IServiceProvider provider) : base(dependencies)
+    public List<IModelCustomizing> Customizers { get; }
+
+    public LoafModelCustomizer(ModelCustomizerDependencies dependencies ) : base(dependencies)
     {
-        Provider = provider;
+        Customizers = typeof(LoafModelCustomizer).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsAssignableTo(typeof(IModelCustomizing)))
+            .Select(type => Activator.CreateInstance(type) as IModelCustomizing).ToList();
     }
 
     public override void Customize(ModelBuilder modelBuilder, DbContext context)
     {
         base.Customize(modelBuilder, context);
         modelBuilder.ApplyConfigurationsFromAssembly(context.GetType().Assembly);
-        foreach (var customizer in Provider.GetServices<IModelCustomizing>())
+         
+        foreach (var customizer in Customizers)
         {
             customizer.Customize(modelBuilder, context);
         }
