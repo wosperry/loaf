@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Loaf.EntityFrameworkCore.SoftDelete;
@@ -16,7 +16,7 @@ public class LoafSoftDeleteInterceptor : SaveChangesInterceptor
     {
         _provider = provider;
     }
-
+     
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         foreach (var trackingEntry in eventData.Context.ChangeTracker.Entries())
